@@ -11,10 +11,14 @@
   |
  */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
 Route::get('/test', 'TestController@test');
+
+Route::namespace("Site")->group(function() {
+    Route::get('/', 'HomeController@index')->name('site.index');
+});
+
 
 Route::namespace("Admin")->prefix('admin')->group(function() {
     Route::get('/', 'LoginController@showLoginForm')->name('admin.login');
