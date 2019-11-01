@@ -17,6 +17,7 @@ Route::get('/test', 'TestController@test');
 
 Route::namespace("Site")->group(function() {
     Route::get('/', 'HomeController@index')->name('site.index');
+    Route::post('/user-register', 'UserController@register')->name('site.user.register');
 });
 
 
@@ -37,4 +38,9 @@ Route::namespace("Admin")->prefix('admin')->middleware(['auth'])->group(function
     Route::match(['get', 'post'], '/change-password', 'LoginController@changePassword')->name('admin.change-password');
 
     Route::get('/dashboard', 'DashboardController@index')->name('admin.dashboard');
+
+    Route::prefix('user')->group(function() {
+        Route::get('/index', 'UserController@userIndex')->name('admin.user.index');
+        Route::get('/users-list', 'UserController@usersList')->name('admin.user.list');
+    });
 });

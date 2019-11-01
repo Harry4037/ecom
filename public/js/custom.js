@@ -109,6 +109,6 @@ $(document).ready(function() {
     }
 	
 	// ===========Datatabel============
-	$('.datatabel').DataTable();
+//	$('.datatabel').DataTable();
 
 });

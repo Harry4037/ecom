@@ -30,6 +30,8 @@
 
         <!-- LOAD JQUERY LIBRARY -->
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+        <script type="text/javascript" src="js/jquery.validate.js"></script>
+        <script type="text/javascript" src="js/additional.validate.js"></script>
 
         <!-- LOADING FONTS AND ICONS -->
 
@@ -41,7 +43,7 @@
         <link rel="stylesheet" type="text/css" href="css/settings.css">
         <!-- REVOLUTION LAYERS STYLES -->
         <style type="text/css">	#rev_slider_1_1_wrapper .tp-loader.spinner3{ background-color: #FFFFFF !important; } </style>
-        <style type="text/css">#rev_slider_1_1 .uranus.tparrows{width:50px; height:50px; background:rgba(255,255,255,0)}#rev_slider_1_1 .uranus.tparrows:before{width:50px; height:50px; line-height:50px; font-size:40px; transition:all 0.3s;-webkit-transition:all 0.3s}#rev_slider_1_1 .uranus.tparrows:hover:before{opacity:0.75}#rev_slider_1_1 .uranus .tp-bullet{border-radius:50%; box-shadow:0 0 0 2px rgba(255,255,255,0); -webkit-transition:box-shadow 0.3s ease; transition:box-shadow 0.3s ease; background:transparent; width:15px; height:15px}#rev_slider_1_1 .uranus .tp-bullet.selected,#rev_slider_1_1 .uranus .tp-bullet:hover{box-shadow:0 0 0 2px rgba(255,255,255,1); border:none; border-radius:50%; background:transparent}#rev_slider_1_1 .uranus .tp-bullet-inner{-webkit-transition:background-color 0.3s ease,-webkit-transform 0.3s ease; transition:background-color 0.3s ease,transform 0.3s ease; top:0; left:0; width:100%; height:100%; outline:none; border-radius:50%; background-color:rgb(255,255,255); background-color:rgba(255,255,255,0.3); text-indent:-999em; cursor:pointer; position:absolute}#rev_slider_1_1 .uranus .tp-bullet.selected .tp-bullet-inner,#rev_slider_1_1 .uranus .tp-bullet:hover .tp-bullet-inner{transform:scale(0.4); -webkit-transform:scale(0.4); background-color:rgb(255,255,255)}</style>
+        <style type="text/css">#rev_slider_1_1 .uranus.tparrows{width:50px; height:50px; background:rgba(255,255,255,0)}#rev_slider_1_1 .uranus.tparrows:before{width:50px; height:50px; line-height:50px; font-size:40px; transition:all 0.3s;-webkit-transition:all 0.3s}#rev_slider_1_1 .uranus.tparrows:hover:before{opacity:0.75}#rev_slider_1_1 .uranus .tp-bullet{border-radius:50%; box-shadow:0 0 0 2px rgba(255,255,255,0); -webkit-transition:box-shadow 0.3s ease; transition:box-shadow 0.3s ease; background:transparent; width:15px; height:15px}#rev_slider_1_1 .uranus .tp-bullet.selected,#rev_slider_1_1 .uranus .tp-bullet:hover{box-shadow:0 0 0 2px rgba(255,255,255,1); border:none; border-radius:50%; background:transparent}#rev_slider_1_1 .uranus .tp-bullet-inner{-webkit-transition:background-color 0.3s ease,-webkit-transform 0.3s ease; transition:background-color 0.3s ease,transform 0.3s ease; top:0; left:0; width:100%; height:100%; outline:none; border-radius:50%; background-color:rgb(255,255,255); background-color:rgba(255,255,255,0.3); text-indent:-999em; cursor:pointer; position:absolute}#rev_slider_1_1 .uranus .tp-bullet.selected .tp-bullet-inner,#rev_slider_1_1 .uranus .tp-bullet:hover .tp-bullet-inner{transform:scale(0.4); -webkit-transform:scale(0.4); background-color:rgb(255,255,255)}.error{color: red;}</style>
     </head>
     <body>
         <div class="alert alert-info fade in show btn-primary pt-2 pb-2" style="border-radius: 0px;border: none;margin: 0px;">
@@ -74,7 +76,7 @@
                                         <span aria-hidden="true"><i class="icofont-close-line"></i></span>
                                         <span class="sr-only">Close</span>
                                     </button>
-                                    <form class="position-relative">
+                                    <div class="position-relative">
                                         <ul class="mt-4 mr-4 nav nav-tabs-login float-right position-absolute" role="tablist">
                                             <li>
                                                 <a class="nav-link-login active" data-toggle="tab" href="#login-form" role="tab"><i class="icofont-ui-lock"></i> LOGIN</a>
@@ -117,25 +119,31 @@
                                                 </div>
                                                 <div class="tab-pane" id="register" role="tabpanel">
                                                     <h5 class="heading-design-h5 text-dark">REGISTER</h5>
-                                                    <fieldset class="form-group mt-4">
-                                                        <label>Enter Email/Mobile number</label>
-                                                        <input type="text" class="form-control" placeholder="+91 123 456 7890">
-                                                    </fieldset>
-                                                    <fieldset class="form-group">
-                                                        <label>Enter Password</label>
-                                                        <input type="password" class="form-control" placeholder="********">
-                                                    </fieldset>
-                                                    <fieldset class="form-group">
-                                                        <label>Enter Confirm Password </label>
-                                                        <input type="password" class="form-control" placeholder="********">
-                                                    </fieldset>
-                                                    <fieldset class="form-group">
-                                                        <button formaction="profile.html" type="submit" class="btn btn-lg btn-primary btn-block">Create Your Account</button>
-                                                    </fieldset>
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                                        <label class="custom-control-label" for="customCheck2">I Agree with <a href="#">Term and Conditions</a></label>
-                                                    </div>
+                                                    <label id="reg_msg"></label>
+                                                    <form method="post" action="{{route('site.user.register')}}" id="registerUser">
+                                                        @csrf
+                                                        <fieldset class="form-group mt-4">
+                                                            <label>Enter Email/Mobile number</label>
+                                                            <input name="user_mobile_number" id="user_mobile_number" type="text" class="form-control" placeholder="+91 123 456 7890">
+                                                        </fieldset>
+                                                        <fieldset class="form-group">
+                                                            <label>Enter Password</label>
+                                                            <input name="user_password" id="user_password" type="password" class="form-control" placeholder="********">
+                                                        </fieldset>
+                                                        <fieldset class="form-group">
+                                                            <label>Enter Confirm Password </label>
+                                                            <input name="user_c_password" id="user_c_password" type="password" class="form-control" placeholder="********">
+                                                        </fieldset>
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                                            <label class="custom-control-label" for="customCheck2">I Agree with <a href="#">Term and Conditions</a></label>
+                                                        </div>
+
+                                                        <fieldset class="form-group">
+                                                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Create Your Account">
+                                                        </fieldset>
+
+                                                    </form>
                                                     <div class="login-with-sites mt-4">
                                                         <p class="mb-2">or Login with your social profile:</p>
                                                         <div class="row text-center">
@@ -150,7 +158,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1031,7 +1039,7 @@
         </div>
     </div>
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
+    <!--<script src="vendor/jquery/jquery.min.js"></script>-->
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- select2 Js -->
     <script src="vendor/select2/js/select2.min.js"></script>
@@ -1042,20 +1050,76 @@
     <!-- Custom scripts for all pages-->
     <script src="js/custom.js"></script>
     <script>
-        window.onscroll = function () {
-            myFunction()
-        };
 
-        var navbar = document.getElementById("navbar");
-        var sticky = navbar.offsetTop;
-
-        function myFunction() {
-            if (window.pageYOffset >= sticky) {
-                navbar.classList.add("sticky")
-            } else {
-                navbar.classList.remove("sticky");
-            }
+$("#registerUser").validate({
+    rules: {
+        user_mobile_number: {
+            required: true,
+            digits: true,
+            minlength: 10,
+            maxlength: 10,
+        },
+        user_password: {
+            required: true,
+            minlength: 6,
+        },
+        user_c_password: {
+            required: true,
+            equalTo: "#user_password"
         }
+    },
+    messages: {
+        user_password: {
+            minlength: "Password must be minimum six character."
+        },
+        user_c_password: {
+            equalTo: "Confirm password does't match."
+        },
+        user_mobile_number: {
+            digits: "Please enter valid mobile number.",
+            minlength: "Please enter 10 digit mobile number.",
+            maxlength: "Please enter 10 digit mobile number."
+        }
+    },
+    submitHandler: function (form) {
+        let btn = $(form).find('input[type="submit"]');
+        btn.val('Submitting . . .').attr('disabled', 'disabled');
+        $.ajax({
+            url: form.action,
+            type: form.method,
+            data: $(form).serialize(),
+            success: function (response) {
+                btn.val('Create Your Account').removeAttr('disabled');
+                if (response.status) {
+                    $("#reg_msg").css("color", "green");
+                    $("#reg_msg").html(response.msg);
+                } else {
+                    $("#reg_msg").css("color", "red");
+                    $("#reg_msg").html(response.msg);
+                }
+
+                setTimeout(function () {
+                    location.reload();
+                }, 1500);
+            },
+        });
+    }
+});
+
+window.onscroll = function () {
+    myFunction()
+};
+
+var navbar = document.getElementById("navbar");
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+    if (window.pageYOffset >= sticky) {
+        navbar.classList.add("sticky")
+    } else {
+        navbar.classList.remove("sticky");
+    }
+}
     </script>
     <script>
         var theToggle = document.getElementById('toggle');
@@ -1096,10 +1160,10 @@
             }
         }
 
-        theToggle.onclick = function () {
-            toggleClass(this, 'on');
-            return false;
-        }
+//        theToggle.onclick = function () {
+//            toggleClass(this, 'on');
+//            return false;
+//        }
     </script>
     <!-----Slider Js-------------------->
     <script type="text/javascript">
@@ -1112,8 +1176,10 @@
                 onLoad();
             function onLoad() {
                 if (tpj === undefined) {
-                    tpj = jQuery; if ("off" == "on")
-                        tpj.noConflict();}
+                    tpj = jQuery;
+                    if ("off" == "on")
+                        tpj.noConflict();
+                }
                 if (tpj("#rev_slider_1_1").revolution == undefined) {
                     revslider_showDoubleJqueryError("#rev_slider_1_1");
                 } else {
@@ -1225,7 +1291,8 @@
             } catch (d) {
                 console.log("Failure at Presize of Slider:" + d)
             }
-        };</script>
+        }
+        ;</script>
     <!-- REVOLUTION JS FILES -->
     <script type="text/javascript" src="js/jquery.themepunch.tools.min.js"></script>
     <script type="text/javascript" src="js/jquery.themepunch.revolution.min.js"></script>

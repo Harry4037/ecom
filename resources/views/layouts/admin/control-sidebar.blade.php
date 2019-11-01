@@ -6,6 +6,9 @@
             <li>
                 <a href="{{ route('admin.dashboard') }}"><i class="fa fa-dashboard"></i>Dashboard</a>
             </li>
+            <li>
+                <a href="{{ route('admin.user.index') }}"><i class="fa fa-users"></i>Users</a>
+            </li>
         </ul>
     </div>
 </div>
