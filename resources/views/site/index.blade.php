@@ -1,50 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="Gurdeep singh osahan">
-        <meta name="author" content="Gurdeep singh osahan">
-        <title>E-Commerce</title>
-        <!-- Favicon Icon -->
-        <link rel="icon" type="image/png" href="img/fav-icon.png">
-        <!-- Bootstrap core CSS -->
-        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Slider CSS -->
-        <link rel="stylesheet" href="vendor/slider/slider.css">
-        <!-- Select2 CSS -->
-        <link href="vendor/select2/css/select2-bootstrap.css" />
-        <link href="vendor/select2/css/select2.min.css" rel="stylesheet" />
-        <!-- Font Awesome-->
-        <link href="vendor/fontawesome/css/all.min.css" rel="stylesheet">
-        <link href="vendor/icofont/icofont.min.css" rel="stylesheet">
-        <!-- Custom styles for this template -->
-        <link href="css/style.css" rel="stylesheet">
-        <!-- Owl Carousel -->
-        <link rel="stylesheet" href="vendor/owl-carousel/owl.carousel.css">
-        <link rel="stylesheet" href="vendor/owl-carousel/owl.theme.css">
-
-
-
-
-
-        <!-- LOAD JQUERY LIBRARY -->
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
-        <script type="text/javascript" src="js/jquery.validate.js"></script>
-        <script type="text/javascript" src="js/additional.validate.js"></script>
-
-        <!-- LOADING FONTS AND ICONS -->
-
-
-        <link rel="stylesheet" type="text/css" href="fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css">
-        <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css">
-
-        <!-- REVOLUTION STYLE SHEETS -->
-        <link rel="stylesheet" type="text/css" href="css/settings.css">
-        <!-- REVOLUTION LAYERS STYLES -->
-        <style type="text/css">	#rev_slider_1_1_wrapper .tp-loader.spinner3{ background-color: #FFFFFF !important; } </style>
-        <style type="text/css">#rev_slider_1_1 .uranus.tparrows{width:50px; height:50px; background:rgba(255,255,255,0)}#rev_slider_1_1 .uranus.tparrows:before{width:50px; height:50px; line-height:50px; font-size:40px; transition:all 0.3s;-webkit-transition:all 0.3s}#rev_slider_1_1 .uranus.tparrows:hover:before{opacity:0.75}#rev_slider_1_1 .uranus .tp-bullet{border-radius:50%; box-shadow:0 0 0 2px rgba(255,255,255,0); -webkit-transition:box-shadow 0.3s ease; transition:box-shadow 0.3s ease; background:transparent; width:15px; height:15px}#rev_slider_1_1 .uranus .tp-bullet.selected,#rev_slider_1_1 .uranus .tp-bullet:hover{box-shadow:0 0 0 2px rgba(255,255,255,1); border:none; border-radius:50%; background:transparent}#rev_slider_1_1 .uranus .tp-bullet-inner{-webkit-transition:background-color 0.3s ease,-webkit-transform 0.3s ease; transition:background-color 0.3s ease,transform 0.3s ease; top:0; left:0; width:100%; height:100%; outline:none; border-radius:50%; background-color:rgb(255,255,255); background-color:rgba(255,255,255,0.3); text-indent:-999em; cursor:pointer; position:absolute}#rev_slider_1_1 .uranus .tp-bullet.selected .tp-bullet-inner,#rev_slider_1_1 .uranus .tp-bullet:hover .tp-bullet-inner{transform:scale(0.4); -webkit-transform:scale(0.4); background-color:rgb(255,255,255)}.error{color: red;}</style>
-    </head>
+    @include('layouts.site.header')
     <body>
         <div class="alert alert-info fade in show btn-primary pt-2 pb-2" style="border-radius: 0px;border: none;margin: 0px;">
             <div class="container-fluid">
@@ -90,17 +46,22 @@
                                             <div class="tab-content">
                                                 <div class="tab-pane active" id="login-form" role="tabpanel">
                                                     <h5 class="heading-design-h5 text-dark">LOGIN</h5>
-                                                    <fieldset class="form-group mt-4">
-                                                        <label>Enter Email/Mobile number</label>
-                                                        <input type="text" class="form-control" placeholder="+91 123 456 7890">
-                                                    </fieldset>
-                                                    <fieldset class="form-group">
-                                                        <label>Enter Password</label>
-                                                        <input type="password" class="form-control" placeholder="********">
-                                                    </fieldset>
-                                                    <fieldset class="form-group">
-                                                        <button formaction="profile.html" type="submit" class="btn btn-lg btn-primary btn-block">Enter to your account</button>
-                                                    </fieldset>
+                                                    <label id="login_msg"></label>
+                                                    <form method="post" action="{{route('site.user.login')}}" id="loginUser">
+                                                        @csrf
+                                                        <fieldset class="form-group mt-4">
+                                                            <label>Enter Email</label>
+                                                            <input id="email_id" name="email_id" type="text" class="form-control" placeholder="+91 123 456 7890">
+                                                        </fieldset>
+                                                        <fieldset class="form-group">
+                                                            <label>Enter Password</label>
+                                                            <input id="password" name="password" type="password" class="form-control" placeholder="********">
+                                                        </fieldset>
+                                                        <fieldset class="form-group">
+                                                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Enter to your account">
+                                                            <!--                                                            <button formaction="profile.html" type="submit" class="btn btn-lg btn-primary btn-block">Enter to your account</button>-->
+                                                        </fieldset>
+                                                    </form>
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input" id="customCheck1">
                                                         <label class="custom-control-label" for="customCheck1">Remember me</label>
@@ -120,11 +81,25 @@
                                                 <div class="tab-pane" id="register" role="tabpanel">
                                                     <h5 class="heading-design-h5 text-dark">REGISTER</h5>
                                                     <label id="reg_msg"></label>
+                                                    
+                                                    <form style="display: none;" method="post" action="{{route('site.user.verify-otp')}}" id="verifyOTP">
+                                                        @csrf
+                                                        <input name="user_otp_id" id="user_otp_id" type="hidden" class="form-control" value="0">
+                                                        <fieldset class="form-group mt-4">
+                                                            <label>Enter OTP</label>
+                                                            <input name="user_OTP" id="user_OTP" type="text" class="form-control" placeholder="OTP">
+                                                        </fieldset>
+
+                                                        <fieldset class="form-group">
+                                                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Verify">
+                                                        </fieldset>
+
+                                                    </form>
                                                     <form method="post" action="{{route('site.user.register')}}" id="registerUser">
                                                         @csrf
                                                         <fieldset class="form-group mt-4">
-                                                            <label>Enter Email/Mobile number</label>
-                                                            <input name="user_mobile_number" id="user_mobile_number" type="text" class="form-control" placeholder="+91 123 456 7890">
+                                                            <label>Enter Email</label>
+                                                            <input name="user_email_id" id="user_email_id" type="text" class="form-control" placeholder="Email Address">
                                                         </fieldset>
                                                         <fieldset class="form-group">
                                                             <label>Enter Password</label>
@@ -209,6 +184,19 @@
                             <button class="btn-link" type="submit"><i class="icofont-search"></i></button>
                         </form>
                         <ul class="navbar-nav profile-nav-right">
+                            @if(auth('web')->user())
+                            <li class="nav-item">
+                                <a href="#" class="nav-link ml-0">
+                                    <i class="icofont-ui-user"></i> {{auth('web')->user()->email_id}}
+                                </a>
+                            </li>
+                            &nbsp;
+                            <li class="nav-item">
+                                <a href="{{route('site.user.logout')}}" class="nav-link ml-0">
+                                    <i class="icofont-ui-user"></i> Logout
+                                </a>
+                            </li>
+                            @else
                             <li class="nav-item">
                                 <a href="#" data-target="#login" data-toggle="modal" class="nav-link ml-0">
                                     <i class="icofont-ui-user"></i> Login/Sign Up
@@ -220,6 +208,8 @@
                                     <span class="badge badge-danger">5</span>
                                 </a>
                             </li>
+                            @endif
+
                         </ul>                  
                     </div>
                 </nav>
@@ -848,464 +838,9 @@
             </div>
         </div>
     </section>           
-    <!-- Footer -->
-    <footer class="bg-white border-bottom border-top">
-        <div class="container">
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                    <div class="border-right py-5 pr-5">
-                        <h6 class="mt-0 mb-4 f-14 text-dark font-weight-bold">TOP CATEGORIES</h6>
-                        <div class="row no-gutters">
-                            <div class="col-6">
-                                <ul class="list-unstyled mb-0">
-                                    <li><a href="#">Dresses for Girls</a></li>
-                                    <li><a href="#">Maxi Dresses</a></li>
-                                    <li><a href="#">Tops for Girls</a></li>
-                                    <li><a href="#">Women Jumpsuits</a></li>
-                                    <li><a href="#">Dungarees Dress</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-6">
-                                <ul class="list-unstyled mb-0">
-                                    <li><a href="#">T Shirts</a></li>
-                                    <li><a href="#">Shoes for Men</a></li>
-                                    <li><a href="#">Ripped Jeans</a></li>
-                                    <li><a href="#">Jeans for Girls</a></li>
-                                    <li><a href="#">Denim shirts</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="border-right py-5 px-5">
-                        <h6 class="mt-0 mb-4 f-14 text-dark font-weight-bold">ABOUT US</h6>
-                        <div class="row no-gutters">
-                            <div class="col-6">
-                                <ul class="list-unstyled mb-0">
-                                    <li><a href="#">History</a></li>
-                                    <li><a href="#">Band of Trust</a></li>
-                                    <li><a href="#">Brand Guidelines</a></li>
-                                    <li><a href="#">TV Commercials</a></li>
-                                    <li><a href="#">In the News
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-6">
-                                <ul class="list-unstyled mb-0">
-                                    <li><a href="#">Awards</a></li>
-                                    <li><a href="#">Terms & Conditions</a></li>
-                                    <li><a href="#">Privacy Policy</a></li>
-                                    <li><a href="disclaimer.html">Disclaimer</a></li>
-                                    <li><a href="#">Offers</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="py-5 pl-5">
-                        <h6 class="mt-0 mb-4 f-14 text-dark font-weight-bold">DOWNLOAD APP</h6>
-                        <div class="app">
-                            <a href="#">
-                                <img class="img-fluid" src="img/google.png">
-                            </a>
-                            <a href="#">
-                                <img class="img-fluid" src="img/apple.png">
-                            </a>
-                        </div>
-                        <h6 class="mt-4 mb-4 f-14 text-dark font-weight-bold">KEEP IN TOUCH</h6>
-                        <div class="footer-social">
-                            <a class="btn-facebook" href="#"><i class="icofont-facebook"></i></a>
-                            <a class="btn-twitter" href="#"><i class="icofont-twitter"></i></a>
-                            <a class="btn-instagram" href="#"><i class="icofont-instagram"></i></a>
-                            <a class="btn-whatsapp" href="#"><i class="icofont-whatsapp"></i></a>
-                            <a class="btn-messenger" href="#"><i class="icofont-facebook-messenger"></i></a>
-                            <a class="btn-google" href="#"><i class="icofont-google-plus"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /.container -->
-    </footer>
-    <div class="popular-tag py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h6 class="mt-0 mb-4 f-14 text-dark font-weight-bold">POPULAR SEARCHES</h6>
-                    <p class="mb-0">
-                        <a href="#">Makeup</a> &nbsp; | &nbsp; <a href="#">Dresses For Girls</a> &nbsp; | &nbsp; <a href="#">T-Shirts</a> &nbsp; | &nbsp; <a href="#">Sandals</a> &nbsp; | &nbsp; <a href="#">Headphones</a> &nbsp; | &nbsp; <a href="#">Babydolls</a> &nbsp; | &nbsp; <a href="#">Blazers For Men</a> &nbsp; | &nbsp; <a href="#">Handbags</a> &nbsp; | &nbsp; <a href="#">Ladies Watches</a> &nbsp; | &nbsp; <a href="#">Bags</a> &nbsp; | &nbsp; <a href="#">Sport Shoes</a> &nbsp; | &nbsp; <a href="#">Reebok Shoes</a> &nbsp; | &nbsp; <a href="#">Puma Shoes</a> &nbsp; | &nbsp; <a href="#">Boxers  Wallets</a> &nbsp; | &nbsp; <a href="#">Tops</a> &nbsp; | &nbsp; <a href="#">Earrings</a> &nbsp; | &nbsp; <a href="#">Fastrack Watches</a> &nbsp; | &nbsp; <a href="#">Nike</a> &nbsp; | &nbsp; <a href="#">Smart Watches</a> &nbsp; | &nbsp; <a href="#">Cricket Shoes</a> &nbsp; | &nbsp; <a href="#">Forever 21</a> &nbsp; | &nbsp; <a href="#">Eye Makeup</a> <a href="#">Photo</a> &nbsp; | &nbsp; <a href="#">Fashion Show</a> &nbsp; | &nbsp; <a href="#">Lipstick</a> &nbsp; | &nbsp; <a href="#">Dresses</a> &nbsp; | &nbsp; <a href="#">Nike Shoes</a> &nbsp; | &nbsp; <a href="#">Goggles</a> &nbsp; | &nbsp; <a href="#">Suit Chinos</a> &nbsp; | &nbsp; <a href="#">Adidas Shoes</a> &nbsp; | &nbsp; <a href="#">Woodland Shoes</a> &nbsp; | &nbsp; <a href="#">Boxers  Wallets</a> &nbsp; | &nbsp; <a href="#">Tops</a> &nbsp; | &nbsp; <a href="#">Earrings</a> &nbsp; | &nbsp; <a href="#">Fastrack Watches</a> &nbsp; | &nbsp; <a href="#">Nike</a> &nbsp; | &nbsp; <a href="#">Smart Watches</a> &nbsp; | &nbsp; <a href="#">Cricket Shoes</a> &nbsp; | &nbsp; <a href="#">Forever 21</a> &nbsp; | &nbsp; <a href="#">Eye Makeup</a> <a href="#">Photo</a> &nbsp; | &nbsp; <a href="#">Fashion Show</a> &nbsp; | &nbsp; <a href="#">Lipstick</a> &nbsp; | &nbsp; <a href="#">Dresses</a> &nbsp; | &nbsp; <a href="#">Nike Shoes</a> &nbsp; | &nbsp; <a href="#">Goggles</a> &nbsp; | &nbsp; <a href="#">Suit Chinos</a> &nbsp; | &nbsp; <a href="#">Adidas Shoes</a> &nbsp; | &nbsp; <a href="#">Woodland Shoes</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="copyright bg-light py-3">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 d-flex align-items-center">
-                    <p class="mb-0">© Copyright 2019 <a href="#">E-commerce</a> . All Rights Reserved
-                    </p>
-                </div>
-                <div class="col-md-6 text-right">
-                    <img class="img-fluid" src="img/payment_methods.png">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="cart-sidebar">
-        <div class="cart-sidebar-header">
-            <h5>
-                My Cart <span class="text-info">(5 item)</span> <a data-toggle="offcanvas" class="float-right" href="#"><i class="icofont icofont-close-line"></i>
-                </a>
-            </h5>
-        </div>
-        <div class="cart-sidebar-body">
-            <div class="cart-list-product">
-                <a class="float-right remove-cart" href="#"><i class="icofont icofont-close-circled"></i></a>
-                <img class="img-fluid" src="img/item/1.jpg" alt="">
-                <span class="badge badge-success">50% OFF</span>
-                <h5><a href="product-detail.html">Floret Printed Ivory Skater Dress</a></h5>
-                <div class="stars-rating"><i class="icofont icofont-star active"></i><i class="icofont icofont-star active"></i><i class="icofont icofont-star active"></i><i class="icofont icofont-star active"></i><i class="icofont icofont-star"></i> <span>613</span></div>
-                <p class="f-14 mb-0 text-dark float-right">$135.00 <del class="small text-secondary">$ 500.00 </del></p>
-                <span class="count-number float-left">
-                    <button class="btn btn-outline-secondary  btn-sm left dec"> <i class="icofont-minus"></i> </button>
-                    <input class="count-number-input" type="text" value="1" readonly="">
-                    <button class="btn btn-outline-secondary btn-sm right inc"> <i class="icofont-plus"></i> </button>
-                </span>
-            </div>
-            <div class="cart-list-product">
-                <a class="float-right remove-cart" href="#"><i class="icofont icofont-close-circled"></i></a>
-                <img class="img-fluid" src="img/item/2.jpg" alt="">
-                <span class="badge badge-danger">55% OFF</span>
-                <h5><a href="product-detail.html">Floret Printed Ivory Skater Dress</a></h5>
-                <div class="stars-rating"><i class="icofont icofont-star active"></i><i class="icofont icofont-star active"></i><i class="icofont icofont-star active"></i><i class="icofont icofont-star active"></i><i class="icofont icofont-star"></i> <span>613</span></div>
-                <p class="f-14 mb-0 text-dark float-right">$250.00 <del class="small text-secondary">$ 500.00 </del> <span class="bg-info rounded-sm pl-1 ml-1 pr-1 text-white small">NEW</span> </p>
-                <span class="count-number float-left">
-                    <button class="btn btn-outline-secondary  btn-sm left dec"> <i class="icofont-minus"></i> </button>
-                    <input class="count-number-input" type="text" value="1" readonly="">
-                    <button class="btn btn-outline-secondary btn-sm right inc"> <i class="icofont-plus"></i> </button>
-                </span>           
-            </div>
-            <div class="cart-list-product">
-                <a class="float-right remove-cart" href="#"><i class="icofont icofont-close-circled"></i></a>
-                <img class="img-fluid" src="img/item/3.jpg" alt="">
-                <span class="badge badge-info">NEW</span>
-                <h5><a href="product-detail.html">Floret Printed Ivory Skater Dress</a></h5>
-                <div class="stars-rating"><i class="icofont icofont-star active"></i><i class="icofont icofont-star active"></i><i class="icofont icofont-star active"></i><i class="icofont icofont-star active"></i><i class="icofont icofont-star"></i> <span>613</span></div>
-                <p class="f-14 mb-0 text-dark float-right">$900.00 <del class="small text-secondary">$ 500.00 </del> <span class="bg-danger  rounded-sm pl-1 ml-1 pr-1 text-white small"> 50% OFF</span> </p>
-                <span class="count-number float-left">
-                    <button class="btn btn-outline-secondary  btn-sm left dec"> <i class="icofont-minus"></i> </button>
-                    <input class="count-number-input" type="text" value="1" readonly="">
-                    <button class="btn btn-outline-secondary btn-sm right inc"> <i class="icofont-plus"></i> </button>
-                </span>
-            </div>
-            <div class="cart-list-product">
-                <a class="float-right remove-cart" href="#"><i class="icofont icofont-close-circled"></i></a>
-                <img class="img-fluid" src="img/item/4.jpg" alt="">
-                <span class="badge badge-danger">NEW</span>
-                <h5><a href="product-detail.html">Floret Printed Ivory Skater Dress</a></h5>
-                <div class="stars-rating"><i class="icofont icofont-star active"></i><i class="icofont icofont-star active"></i><i class="icofont icofont-star active"></i><i class="icofont icofont-star active"></i><i class="icofont icofont-star"></i> <span>613</span></div>
-                <p class="f-14 mb-0 text-dark float-right">$135.00 <del class="small text-secondary">$ 500.00 </del> <span class="bg-danger  rounded-sm pl-1 ml-1 pr-1 text-white small"> 50% OFF</span> </p>
-                <span class="count-number float-left">
-                    <button class="btn btn-outline-secondary  btn-sm left dec"> <i class="icofont-minus"></i> </button>
-                    <input class="count-number-input" type="text" value="1" readonly="">
-                    <button class="btn btn-outline-secondary btn-sm right inc"> <i class="icofont-plus"></i> </button>
-                </span>
-            </div>
-            <div class="cart-list-product">
-                <a class="float-right remove-cart" href="#"><i class="icofont icofont-close-circled"></i></a>
-                <img class="img-fluid" src="img/item/5.jpg" alt="">
-                <span class="badge badge-info">NEW</span>
-                <h5><a href="product-detail.html">Floret Printed Ivory Skater Dress</a></h5>
-                <div class="stars-rating"><i class="icofont icofont-star active"></i><i class="icofont icofont-star active"></i><i class="icofont icofont-star active"></i><i class="icofont icofont-star active"></i><i class="icofont icofont-star"></i> <span>613</span></div>
-                <p class="f-14 mb-0 text-dark float-right">$135.00 <del class="small text-secondary">$ 500.00 </del> <span class="bg-danger  rounded-sm pl-1 ml-1 pr-1 text-white small"> 50% OFF</span> </p>
-                <span class="count-number float-left">
-                    <button class="btn btn-outline-secondary  btn-sm left dec"> <i class="icofont-minus"></i> </button>
-                    <input class="count-number-input" type="text" value="1" readonly="">
-                    <button class="btn btn-outline-secondary btn-sm right inc"> <i class="icofont-plus"></i> </button>
-                </span>
-            </div>
-        </div>
-        <div class="cart-sidebar-footer">
-            <div class="cart-store-details">
-                <p>Sub Total <strong class="float-right">$900.69</strong></p>
-                <p>Delivery Charges <strong class="float-right text-danger">+ $29.69</strong></p>
-                <h6>Your total savings <strong class="float-right text-danger">$55 (42.31%)</strong></h6>
-            </div>
-            <a href="checkout.html"><button class="btn btn-primary btn-lg btn-block text-left" type="button"><span class="float-left"><i class="icofont icofont-cart"></i> Proceed to Checkout </span><span class="float-right"><strong>$1200.69</strong> <span class="icofont icofont-bubble-right"></span></span></button></a>
-        </div>
-    </div>
-    <!-- Bootstrap core JavaScript -->
-    <!--<script src="vendor/jquery/jquery.min.js"></script>-->
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- select2 Js -->
-    <script src="vendor/select2/js/select2.min.js"></script>
-    <!-- Owl Carousel -->
-    <script src="vendor/owl-carousel/owl.carousel.js"></script>
-    <!-- Slider Js -->
-    <script src="vendor/slider/slider.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="js/custom.js"></script>
-    <script>
 
-$("#registerUser").validate({
-    rules: {
-        user_mobile_number: {
-            required: true,
-            digits: true,
-            minlength: 10,
-            maxlength: 10,
-        },
-        user_password: {
-            required: true,
-            minlength: 6,
-        },
-        user_c_password: {
-            required: true,
-            equalTo: "#user_password"
-        }
-    },
-    messages: {
-        user_password: {
-            minlength: "Password must be minimum six character."
-        },
-        user_c_password: {
-            equalTo: "Confirm password does't match."
-        },
-        user_mobile_number: {
-            digits: "Please enter valid mobile number.",
-            minlength: "Please enter 10 digit mobile number.",
-            maxlength: "Please enter 10 digit mobile number."
-        }
-    },
-    submitHandler: function (form) {
-        let btn = $(form).find('input[type="submit"]');
-        btn.val('Submitting . . .').attr('disabled', 'disabled');
-        $.ajax({
-            url: form.action,
-            type: form.method,
-            data: $(form).serialize(),
-            success: function (response) {
-                btn.val('Create Your Account').removeAttr('disabled');
-                if (response.status) {
-                    $("#reg_msg").css("color", "green");
-                    $("#reg_msg").html(response.msg);
-                } else {
-                    $("#reg_msg").css("color", "red");
-                    $("#reg_msg").html(response.msg);
-                }
-
-                setTimeout(function () {
-                    location.reload();
-                }, 1500);
-            },
-        });
-    }
-});
-
-window.onscroll = function () {
-    myFunction()
-};
-
-var navbar = document.getElementById("navbar");
-var sticky = navbar.offsetTop;
-
-function myFunction() {
-    if (window.pageYOffset >= sticky) {
-        navbar.classList.add("sticky")
-    } else {
-        navbar.classList.remove("sticky");
-    }
-}
-    </script>
-    <script>
-        var theToggle = document.getElementById('toggle');
-
-        // based on Todd Motto functions
-        // https://toddmotto.com/labs/reusable-js/
-
-        // hasClass
-        function hasClass(elem, className) {
-            return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
-        }
-        // addClass
-        function addClass(elem, className) {
-            if (!hasClass(elem, className)) {
-                elem.className += ' ' + className;
-            }
-        }
-        // removeClass
-        function removeClass(elem, className) {
-            var newClass = ' ' + elem.className.replace(/[\t\r\n]/g, ' ') + ' ';
-            if (hasClass(elem, className)) {
-                while (newClass.indexOf(' ' + className + ' ') >= 0) {
-                    newClass = newClass.replace(' ' + className + ' ', ' ');
-                }
-                elem.className = newClass.replace(/^\s+|\s+$/g, '');
-            }
-        }
-        // toggleClass
-        function toggleClass(elem, className) {
-            var newClass = ' ' + elem.className.replace(/[\t\r\n]/g, " ") + ' ';
-            if (hasClass(elem, className)) {
-                while (newClass.indexOf(" " + className + " ") >= 0) {
-                    newClass = newClass.replace(" " + className + " ", " ");
-                }
-                elem.className = newClass.replace(/^\s+|\s+$/g, '');
-            } else {
-                elem.className += ' ' + className;
-            }
-        }
-
-//        theToggle.onclick = function () {
-//            toggleClass(this, 'on');
-//            return false;
-//        }
-    </script>
-    <!-----Slider Js-------------------->
-    <script type="text/javascript">
-        var revapi1,
-                tpj;
-        (function () {
-            if (!/loaded|interactive|complete/.test(document.readyState))
-                document.addEventListener("DOMContentLoaded", onLoad);
-            else
-                onLoad();
-            function onLoad() {
-                if (tpj === undefined) {
-                    tpj = jQuery;
-                    if ("off" == "on")
-                        tpj.noConflict();
-                }
-                if (tpj("#rev_slider_1_1").revolution == undefined) {
-                    revslider_showDoubleJqueryError("#rev_slider_1_1");
-                } else {
-                    revapi1 = tpj("#rev_slider_1_1").show().revolution({
-                        sliderType: "standard",
-                        jsFileLocation: "//www.webinforest.com/wp-content/plugins/revslider/public/assets/js/",
-                        sliderLayout: "auto",
-                        dottedOverlay: "none",
-                        delay: 9000,
-                        navigation: {
-                            keyboardNavigation: "off",
-                            keyboard_direction: "horizontal",
-                            mouseScrollNavigation: "off",
-                            mouseScrollReverse: "default",
-                            onHoverStop: "off",
-                            arrows: {
-                                style: "uranus",
-                                enable: true,
-                                hide_onmobile: false,
-                                hide_onleave: true,
-                                hide_delay: 200,
-                                hide_delay_mobile: 1200,
-                                tmp: '',
-                                left: {
-                                    h_align: "left",
-                                    v_align: "center",
-                                    h_offset: 20,
-                                    v_offset: 0
-                                },
-                                right: {
-                                    h_align: "right",
-                                    v_align: "center",
-                                    h_offset: 20,
-                                    v_offset: 0
-                                }
-                            }
-                            ,
-                            bullets: {
-                                enable: true,
-                                hide_onmobile: false,
-                                style: "uranus",
-                                hide_onleave: false,
-                                direction: "horizontal",
-                                h_align: "center",
-                                v_align: "bottom",
-                                h_offset: 0,
-                                v_offset: 20,
-                                space: 5,
-                                tmp: '<span class="tp-bullet-inner"></span>'
-                            }
-                        },
-                        visibilityLevels: [1240, 1024, 778, 480],
-                        gridwidth: 1400,
-                        gridheight: 350,
-                        lazyType: "none",
-                        parallax: {
-                            type: "mouse",
-                            origo: "enterpoint",
-                            speed: 1000,
-                            speedbg: 0,
-                            speedls: 0,
-                            levels: [3, 6, 9, 12, 25, 30, 35, 40, 45, 46, 47, 48, 49, 50, 51, 55],
-                        },
-                        shadow: 0,
-                        spinner: "spinner3",
-                        stopLoop: "off",
-                        stopAfterLoops: -1,
-                        stopAtSlide: -1,
-                        shuffle: "off",
-                        autoHeight: "off",
-                        disableProgressBar: "on",
-                        hideThumbsOnMobile: "off",
-                        hideSliderAtLimit: 0,
-                        hideCaptionAtLimit: 0,
-                        hideAllCaptionAtLilmit: 0,
-                        debugMode: false,
-                        fallbacks: {
-                            simplifyAll: "off",
-                            nextSlideOnWindowFocus: "off",
-                            disableFocusListener: false,
-                        }
-                    });
-                }
-                ; /* END OF revapi call */
-
-            }
-            ; /* END OF ON LOAD FUNCTION */
-        }()); /* END OF WRAPPING FUNCTION */
-    </script>
-    <script type="text/javascript">function setREVStartSize(e) {
-            try {
-                e.c = jQuery(e.c);
-                var i = jQuery(window).width(), t = 9999, r = 0, n = 0, l = 0, f = 0, s = 0, h = 0;
-                if (e.responsiveLevels && (jQuery.each(e.responsiveLevels, function (e, f) {
-                    f > i && (t = r = f, l = e), i > f && f > r && (r = f, n = e)
-                }), t > r && (l = n)), f = e.gridheight[l] || e.gridheight[0] || e.gridheight, s = e.gridwidth[l] || e.gridwidth[0] || e.gridwidth, h = i / s, h = h > 1 ? 1 : h, f = Math.round(h * f), "fullscreen" == e.sliderLayout) {
-                    var u = (e.c.width(), jQuery(window).height());
-                    if (void 0 != e.fullScreenOffsetContainer) {
-                        var c = e.fullScreenOffsetContainer.split(",");
-                        if (c)
-                            jQuery.each(c, function (e, i) {
-                                u = jQuery(i).length > 0 ? u - jQuery(i).outerHeight(!0) : u
-                            }), e.fullScreenOffset.split("%").length > 1 && void 0 != e.fullScreenOffset && e.fullScreenOffset.length > 0 ? u -= jQuery(window).height() * parseInt(e.fullScreenOffset, 0) / 100 : void 0 != e.fullScreenOffset && e.fullScreenOffset.length > 0 && (u -= parseInt(e.fullScreenOffset, 0))
-                    }
-                    f = u
-                } else
-                    void 0 != e.minHeight && f < e.minHeight && (f = e.minHeight);
-                e.c.closest(".rev_slider_wrapper").css({height: f})
-            } catch (d) {
-                console.log("Failure at Presize of Slider:" + d)
-            }
-        }
-        ;</script>
-    <!-- REVOLUTION JS FILES -->
-    <script type="text/javascript" src="js/jquery.themepunch.tools.min.js"></script>
-    <script type="text/javascript" src="js/jquery.themepunch.revolution.min.js"></script>
-
-    <!-- SLIDER REVOLUTION 5.0 EXTENSIONS  (Load Extensions only on Local File Systems !  The following part can be removed on Server for On Demand Loading) -->	
-    <script type="text/javascript" src="js/extensions/revolution.extension.actions.min.js"></script>
-    <script type="text/javascript" src="js/extensions/revolution.extension.carousel.min.js"></script>
-    <script type="text/javascript" src="js/extensions/revolution.extension.kenburn.min.js"></script>
-    <script type="text/javascript" src="js/extensions/revolution.extension.layeranimation.min.js"></script>
-    <script type="text/javascript" src="js/extensions/revolution.extension.migration.min.js"></script>
-    <script type="text/javascript" src="js/extensions/revolution.extension.navigation.min.js"></script>
-    <script type="text/javascript" src="js/extensions/revolution.extension.parallax.min.js"></script>
-    <script type="text/javascript" src="js/extensions/revolution.extension.slideanims.min.js"></script>
-    <script type="text/javascript" src="js/extensions/revolution.extension.video.min.js"></script>					
+    @include('layouts.site.footer')
+    @include('layouts.site.cart-sidebar')
+    @include('layouts.site.javascripts')
 </body>
 </html>

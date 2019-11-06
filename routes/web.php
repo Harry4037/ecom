@@ -16,8 +16,13 @@
 Route::get('/test', 'TestController@test');
 
 Route::namespace("Site")->group(function() {
+    Route::get('/', 'LoginController@showLoginForm')->name('site.user.login');
+    Route::get('/login', 'LoginController@showLoginForm')->name('site.user.login');
+    Route::post('/login', 'LoginController@login')->name('site.user.login');
+    Route::get('/logout', 'LoginController@logout')->name('site.user.logout');
     Route::get('/', 'HomeController@index')->name('site.index');
     Route::post('/user-register', 'UserController@register')->name('site.user.register');
+    Route::post('/verify-otp', 'UserController@verifyOTP')->name('site.user.verify-otp');
 });
 
 
