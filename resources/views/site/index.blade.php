@@ -51,7 +51,7 @@
                                                         @csrf
                                                         <fieldset class="form-group mt-4">
                                                             <label>Enter Email</label>
-                                                            <input id="email_id" name="email_id" type="text" class="form-control" placeholder="+91 123 456 7890">
+                                                            <input id="email_id" name="email_id" type="text" class="form-control" placeholder="Email Address">
                                                         </fieldset>
                                                         <fieldset class="form-group">
                                                             <label>Enter Password</label>
