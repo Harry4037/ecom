@@ -66,6 +66,7 @@
                                                         <input type="checkbox" class="custom-control-input" id="customCheck1">
                                                         <label class="custom-control-label" for="customCheck1">Remember me</label>
                                                     </div>
+                                                    <a data-toggle="tab" href="#forget-form" role="tab">Forget Password</a>
                                                     <div class="login-with-sites mt-4">
                                                         <p class="mb-2">or Login with your social profile:</p>
                                                         <div class="row text-center">
@@ -78,10 +79,24 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="tab-pane" id="forget-form" role="tabpanel">
+                                                    <h5 class="heading-design-h5 text-dark">Forget Password</h5>
+                                                    <label id="forget_msg"></label>
+                                                    <form method="post" action="{{route('site.user.forget-link')}}" id="forgetUser">
+                                                        @csrf
+                                                        <fieldset class="form-group mt-4">
+                                                            <label>Enter Email/Mobile Number</label>
+                                                            <input id="forget_email_id" name="forget_email_id" type="text" class="form-control" placeholder="Email Address/Mobile Number">
+                                                        </fieldset>
+                                                        <fieldset class="form-group">
+                                                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Submit">
+                                                        </fieldset>
+                                                    </form>
+                                                </div>
                                                 <div class="tab-pane" id="register" role="tabpanel">
                                                     <h5 class="heading-design-h5 text-dark">REGISTER</h5>
                                                     <label id="reg_msg"></label>
-                                                    
+
                                                     <form style="display: none;" method="post" action="{{route('site.user.verify-otp')}}" id="verifyOTP">
                                                         @csrf
                                                         <input name="user_otp_id" id="user_otp_id" type="hidden" class="form-control" value="0">
@@ -98,8 +113,8 @@
                                                     <form method="post" action="{{route('site.user.register')}}" id="registerUser">
                                                         @csrf
                                                         <fieldset class="form-group mt-4">
-                                                            <label>Enter Email</label>
-                                                            <input name="user_email_id" id="user_email_id" type="text" class="form-control" placeholder="Email Address">
+                                                            <label>Enter Email/Mobile</label>
+                                                            <input name="user_email_mobile" id="user_email_mobile" type="text" class="form-control" placeholder="Email Address/Mobile Number">
                                                         </fieldset>
                                                         <fieldset class="form-group">
                                                             <label>Enter Password</label>
@@ -110,9 +125,10 @@
                                                             <input name="user_c_password" id="user_c_password" type="password" class="form-control" placeholder="********">
                                                         </fieldset>
                                                         <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                                            <input type="checkbox" class="custom-control-input" id="register_term" name="register_term">
                                                             <label class="custom-control-label" for="customCheck2">I Agree with <a href="#">Term and Conditions</a></label>
                                                         </div>
+                                                        <div id="reg_term_div_error"></div>
 
                                                         <fieldset class="form-group">
                                                             <input type="submit" class="btn btn-lg btn-primary btn-block" value="Create Your Account">
@@ -185,15 +201,23 @@
                         </form>
                         <ul class="navbar-nav profile-nav-right">
                             @if(auth('web')->user())
-                            <li class="nav-item">
-                                <a href="#" class="nav-link ml-0">
-                                    <i class="icofont-ui-user"></i> {{auth('web')->user()->email_id}}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link ml-0 dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img alt="Generic placeholder image" src="{{ asset('img/user/1.png')}}" class="nav-osahan-pic rounded-pill"> My Account
                                 </a>
+                                <div class="dropdown-menu dropdown-menu-right shadow-sm border-0">
+                                    <a class="dropdown-item" href="profile.html"><i class="icofont-ui-user"></i> My Profile</a>
+                                    <a class="dropdown-item" href="profile.html"><i class="icofont-location-pin"></i> My Address</a>
+                                    <a class="dropdown-item" href="profile.html"><i class="icofont-heart"></i> Wish List</a>
+                                    <a class="dropdown-item" href="profile.html"><i class="icofont-list"></i> Order List</a>
+                                    <a class="dropdown-item" href="profile.html"><i class="icofont-file-document"></i> Order Status</a>
+                                    <a class="dropdown-item" href="{{route('site.user.logout')}}"><i class="icofont-logout"></i> Logout</a>
+                                </div>
                             </li>
-                            &nbsp;
-                            <li class="nav-item">
-                                <a href="{{route('site.user.logout')}}" class="nav-link ml-0">
-                                    <i class="icofont-ui-user"></i> Logout
+                            <li class="nav-item cart-nav">
+                                <a data-toggle="offcanvas" class="nav-link" href="#">
+                                    <i class="icofont-basket"></i> Cart
+                                    <span class="badge badge-danger">5</span>
                                 </a>
                             </li>
                             @else
@@ -202,12 +226,7 @@
                                     <i class="icofont-ui-user"></i> Login/Sign Up
                                 </a>
                             </li>
-                            <li class="nav-item cart-nav">
-                                <a data-toggle="offcanvas" class="nav-link" href="#">
-                                    <i class="icofont-basket"></i> Cart
-                                    <span class="badge badge-danger">5</span>
-                                </a>
-                            </li>
+
                             @endif
 
                         </ul>                  

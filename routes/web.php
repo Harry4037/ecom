@@ -23,6 +23,8 @@ Route::namespace("Site")->group(function() {
     Route::get('/', 'HomeController@index')->name('site.index');
     Route::post('/user-register', 'UserController@register')->name('site.user.register');
     Route::post('/verify-otp', 'UserController@verifyOTP')->name('site.user.verify-otp');
+    Route::post('/forget-link', 'UserController@sendForgetPasswordLink')->name('site.user.forget-link');
+    Route::match(['post', 'get'], '/reset-password/{passcode}', 'UserController@resetPassword')->name('site.user.reset-password');
 });
 
 

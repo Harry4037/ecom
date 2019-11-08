@@ -44,7 +44,7 @@ class LoginController extends Controller {
      * @return array
      */
     protected function credentials(Request $request) {
-        return $request->only($this->username(), 'password', 'user_type_id', 'email_verified');
+        return $request->only($this->username(), 'password', 'user_type_id', 'account_verified');
     }
 
     /**
@@ -68,7 +68,7 @@ class LoginController extends Controller {
      */
     public function validateLogin(Request $request) {
         $this->validate($request, [
-            'email_id' => 'required|string|email',
+            'email_id' => 'required',
             'password' => 'required|string',
         ]);
     }
@@ -79,7 +79,9 @@ class LoginController extends Controller {
      * @return string
      */
     public function username() {
-        return 'email_id';
+        $inpuftField = request()->input("email_id");
+        $fieldType = filter_var($inpuftField, FILTER_VALIDATE_EMAIL) ? 'email_id' : 'mobile_number';
+        return $fieldType;
     }
 
     /**
@@ -176,8 +178,4 @@ class LoginController extends Controller {
         return view('operator.profile.change-password');
     }
 
-//    public function test(){
-//        $this->androidPushNotification(2, "asdas", "adasd", "sadsadsadsadsa", 1, 1);
-//        die;
-//    }
 }

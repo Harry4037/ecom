@@ -17,10 +17,10 @@
                 <table id="list" class="table table-striped table-bordered text-center">
                     <thead>
                         <tr>
-                            <th>Sr.No.</th>
-                            <th>PhoneNo.</th>
+                            <!--<th>Sr.No.</th>-->
                             <th>Name</th>
                             <th>Email Address</th>
+                            <th>PhoneNo.</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -48,14 +48,14 @@
             },
             ajax: "{{route('admin.user.list')}}",
             "columns": [
-                {"data": null,
-                    render: function (data, type, row, meta) {
-                        return meta.row + meta.settings._iDisplayStart + 1;
-                    }
-                },
-                {"data": "mobileno", sortable: false},
+//                {"data": null,
+//                    render: function (data, type, row, meta) {
+//                        return meta.row + meta.settings._iDisplayStart + 1;
+//                    }
+//                },
                 {"data": "name", sortable: false},
                 {"data": "email", sortable: false},
+                {"data": "mobileno", sortable: false},
                 {"data": "action", sortable: false},
             ]
         });

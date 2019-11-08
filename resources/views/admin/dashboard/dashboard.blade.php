@@ -24,7 +24,7 @@
             <div class="tile-stats">
                 <div class="icon"><i class="fa fa-users"></i></div>
                 <div class="count">0</div>
-                <h3>Active Staff</h3>
+                <h3>Active Seller</h3>
                 <!--<p>Lorem ipsum psdea itgum rixt.</p>-->
             </div>
         </div>
@@ -32,7 +32,7 @@
             <div class="tile-stats">
                 <div class="icon"><i class="fa fa-users"></i></div>
                 <div class="count">0</div>
-                <h3>Inactive Staff</h3>
+                <h3>Inactive Seller</h3>
                 <!--<p>Lorem ipsum psdea itgum rixt.</p>-->
             </div>
         </div>

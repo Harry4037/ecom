@@ -1,144 +1,162 @@
 <!-- Bootstrap core JavaScript -->
 <!--<script src="vendor/jquery/jquery.min.js"></script>-->
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- select2 Js -->
-<script src="vendor/select2/js/select2.min.js"></script>
+<script src="{{ asset('vendor/select2/js/select2.min.js')}}"></script>
 <!-- Owl Carousel -->
-<script src="vendor/owl-carousel/owl.carousel.js"></script>
+<script src="{{ asset('vendor/owl-carousel/owl.carousel.js')}}"></script>
 <!-- Slider Js -->
-<script src="vendor/slider/slider.js"></script>
+<script src="{{ asset('vendor/slider/slider.js')}}"></script>
 <!-- Custom scripts for all pages-->
-<script src="js/custom.js"></script>
+<script src="{{ asset('js/custom.js')}}"></script>
 <script>
 
-    $("#verifyOTP").validate({
-        rules: {
-            user_OTP: {
-                required: true,
-                digits: true,
-            },
+$("#resetPassword").validate({
+    rules: {
+        new_password: {
+            required: true,
+            minlength: 6,
         },
-        submitHandler: function (form) {
-            let btn = $(form).find('input[type="submit"]');
-            btn.val('Submitting . . .').attr('disabled', 'disabled');
-            $.ajax({
-                url: form.action,
-                type: form.method,
-                data: $(form).serialize(),
-                success: function (response) {
-                    btn.val('Verify').removeAttr('disabled');
-                    if (response.status) {
-                        $("#reg_msg").css("color", "green");
-                        $("#reg_msg").html(response.msg);
-                        $("#registerUser").css("display", "block");
-                        $("#verifyOTP").css("display", "none");
-
-                        setTimeout(function () {
-                            location.reload();
-                        }, 1500);
-
-                    } else {
-                        $("#reg_msg").css("color", "red");
-                        $("#reg_msg").html(response.msg);
-                    }
-                },
-            });
-        }
-    });
-
-    $("#registerUser").validate({
-        rules: {
-            user_email_id: {
-                required: true,
-                email: true,
-            },
-            user_password: {
-                required: true,
-                minlength: 6,
-            },
-            user_c_password: {
-                required: true,
-                equalTo: "#user_password"
-            }
+        c_new_password: {
+            required: true,
+            equalTo: "#new_password"
         },
-        messages: {
-            user_password: {
-                minlength: "Password must be minimum six character."
+    },
+    messages: {
+        new_password: {
+            minlength: "Password must be minimum six character."
+        },
+        c_new_password: {
+            equalTo: "Confirm password does't match."
+        },
+    },
+});
+
+$("#verifyOTP").validate({
+    rules: {
+        user_OTP: {
+            required: true,
+            digits: true,
+        },
+    },
+    submitHandler: function (form) {
+        let btn = $(form).find('input[type="submit"]');
+        btn.val('Submitting . . .').attr('disabled', 'disabled');
+        $.ajax({
+            url: form.action,
+            type: form.method,
+            data: $(form).serialize(),
+            success: function (response) {
+                btn.val('Verify').removeAttr('disabled');
+                if (response.status) {
+                    $("#reg_msg").css("color", "green");
+                    $("#reg_msg").html(response.msg);
+                    $("#registerUser").css("display", "block");
+                    $("#verifyOTP").css("display", "none");
+
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1500);
+
+                } else {
+                    $("#reg_msg").css("color", "red");
+                    $("#reg_msg").html(response.msg);
+                }
             },
-            user_c_password: {
-                equalTo: "Confirm password does't match."
-            },
+        });
+    }
+});
+
+$("#registerUser").validate({
+    rules: {
+        user_email_mobile: {
+            required: true,
+        },
+        user_password: {
+            required: true,
+            minlength: 6,
+        },
+        user_c_password: {
+            required: true,
+            equalTo: "#user_password"
+        },
+//            register_term: {
+//                required: true,
+//            }
+    },
+    messages: {
+        user_password: {
+            minlength: "Password must be minimum six character."
+        },
+        user_c_password: {
+            equalTo: "Confirm password does't match."
+        },
 //            user_mobile_number: {
 //                digits: "Please enter valid mobile number.",
 //                minlength: "Please enter 10 digit mobile number.",
 //                maxlength: "Please enter 10 digit mobile number."
 //            }
-        },
-        submitHandler: function (form) {
-            let btn = $(form).find('input[type="submit"]');
-            btn.val('Submitting . . .').attr('disabled', 'disabled');
-            $.ajax({
-                url: form.action,
-                type: form.method,
-                data: $(form).serialize(),
-                success: function (response) {
-                    btn.val('Create Your Account').removeAttr('disabled');
-                    if (response.status) {
-                        $("#reg_msg").css("color", "green");
-                        $("#reg_msg").html(response.msg);
-                        $("#user_otp_id").val(response.user_id);
-                        $("#registerUser").css("display", "none");
-                        $("#verifyOTP").css("display", "block");
-                    } else {
-                        $("#reg_msg").css("color", "red");
-                        $("#reg_msg").html(response.msg);
-                    }
+    },
+//        errorPlacement: function (error, el) {
+//            if ($(el).attr('type') == 'checkbox') {
+//                error.appendTo("#reg_term_div_error");
+//            } else {
+//                error.insertAfter(el);
+//            }
+//        },
+    submitHandler: function (form) {
+        let btn = $(form).find('input[type="submit"]');
+        btn.val('Submitting . . .').attr('disabled', 'disabled');
+        $.ajax({
+            url: form.action,
+            type: form.method,
+            data: $(form).serialize(),
+            success: function (response) {
+                btn.val('Create Your Account').removeAttr('disabled');
+                if (response.status) {
+                    $("#reg_msg").css("color", "green");
+                    $("#reg_msg").html(response.msg);
+                    $("#user_otp_id").val(response.user_id);
+                    $("#registerUser").css("display", "none");
+                    $("#verifyOTP").css("display", "block");
+                } else {
+                    $("#reg_msg").css("color", "red");
+                    $("#reg_msg").html(response.msg);
+                }
 
 //                    setTimeout(function () {
 //                        location.reload();
 //                    }, 1500);
-                },
-            });
-        }
-    });
+            },
+        });
+    }
+});
 
-    $("#loginUser").validate({
-        rules: {
-            email_id: {
-                required: true,
-                email: true,
-            },
-            password: {
-                required: true,
-            },
+$("#loginUser").validate({
+    rules: {
+        email_id: {
+            required: true,
         },
-        submitHandler: function (form) {
-            let btn = $(form).find('input[type="submit"]');
-            btn.val('Submitting . . .').attr('disabled', 'disabled');
-            $.ajax({
-                url: form.action,
-                type: form.method,
-                data: $(form).serialize(),
-                success: function (response) {
-                    console.log(response);
-                    btn.val('Enter to your account').removeAttr('disabled');
-                    console.log(response.auth);
-                    if (response.auth) {
-                        console.log("success");
-                        window.location.href = response.intended;
+        password: {
+            required: true,
+        },
+    },
+    submitHandler: function (form) {
+        let btn = $(form).find('input[type="submit"]');
+        btn.val('Submitting . . .').attr('disabled', 'disabled');
+        $.ajax({
+            url: form.action,
+            type: form.method,
+            data: $(form).serialize(),
+            success: function (response) {
+                console.log(response);
+                btn.val('Enter to your account').removeAttr('disabled');
+                console.log(response.auth);
+                if (response.auth) {
+                    console.log("success");
+                    window.location.href = response.intended;
 
-                    } else {
-                        $("#login_msg").html("Invalid login details or OTP not verified.");
-                        $("#login_msg").css("color", "red");
-                        $("#login_msg").css("display", "block");
-
-                        setTimeout(function () {
-                            $("#login_msg").fadeOut();
-                        }, 2000);
-                    }
-                },
-                error: function (xhr) {
-                    btn.val('Enter to your account').removeAttr('disabled');
+                } else {
                     $("#login_msg").html("Invalid login details or OTP not verified.");
                     $("#login_msg").css("color", "red");
                     $("#login_msg").css("display", "block");
@@ -147,24 +165,85 @@
                         $("#login_msg").fadeOut();
                     }, 2000);
                 }
-            });
-        }
-    });
+            },
+            error: function (xhr) {
+                btn.val('Enter to your account').removeAttr('disabled');
+                $("#login_msg").html("Invalid login details or OTP not verified.");
+                $("#login_msg").css("color", "red");
+                $("#login_msg").css("display", "block");
 
-    window.onscroll = function () {
-        myFunction()
-    };
-
-    var navbar = document.getElementById("navbar");
-    var sticky = navbar.offsetTop;
-
-    function myFunction() {
-        if (window.pageYOffset >= sticky) {
-            navbar.classList.add("sticky")
-        } else {
-            navbar.classList.remove("sticky");
-        }
+                setTimeout(function () {
+                    $("#login_msg").fadeOut();
+                }, 2000);
+            }
+        });
     }
+});
+
+$("#forgetUser").validate({
+    rules: {
+        forget_email_id: {
+            required: true,
+        },
+    },
+    submitHandler: function (form) {
+        let btn = $(form).find('input[type="submit"]');
+        btn.val('Submitting . . .').attr('disabled', 'disabled');
+        $.ajax({
+            url: form.action,
+            type: form.method,
+            data: $(form).serialize(),
+            success: function (response) {
+                btn.val('Submit').removeAttr('disabled');
+                if (response.status) {
+                    $("#forget_msg").html(response.msg);
+                    $("#forget_msg").css("color", "green");
+                    $("#forget_msg").css("display", "block");
+                    $("#forget_msg").fadeIn();
+
+                    setTimeout(function () {
+                        $("#forget_msg").fadeOut();
+                    }, 2000);
+
+                } else {
+                    $("#forget_msg").html(response.msg);
+                    $("#forget_msg").css("color", "red");
+                    $("#forget_msg").css("display", "block");
+                    $("#forget_msg").fadeIn();
+
+                    setTimeout(function () {
+                        $("#forget_msg").fadeOut();
+                    }, 2000);
+                }
+            },
+            error: function (xhr) {
+                btn.val('Submit').removeAttr('disabled');
+                $("#forget_msg").html("Some error occured.");
+                $("#forget_msg").css("color", "red");
+                $("#forget_msg").css("display", "block");
+
+                setTimeout(function () {
+                    $("#forget_msg").fadeOut();
+                }, 2000);
+            }
+        });
+    }
+});
+
+window.onscroll = function () {
+    myFunction()
+};
+
+var navbar = document.getElementById("navbar");
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+    if (window.pageYOffset >= sticky) {
+        navbar.classList.add("sticky")
+    } else {
+        navbar.classList.remove("sticky");
+    }
+}
 </script>
 <script>
     var theToggle = document.getElementById('toggle');
@@ -339,16 +418,16 @@
     }
     ;</script>
 <!-- REVOLUTION JS FILES -->
-<script type="text/javascript" src="js/jquery.themepunch.tools.min.js"></script>
-<script type="text/javascript" src="js/jquery.themepunch.revolution.min.js"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.themepunch.tools.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.themepunch.revolution.min.js')}}"></script>
 
 <!-- SLIDER REVOLUTION 5.0 EXTENSIONS  (Load Extensions only on Local File Systems !  The following part can be removed on Server for On Demand Loading) -->	
-<script type="text/javascript" src="js/extensions/revolution.extension.actions.min.js"></script>
-<script type="text/javascript" src="js/extensions/revolution.extension.carousel.min.js"></script>
-<script type="text/javascript" src="js/extensions/revolution.extension.kenburn.min.js"></script>
-<script type="text/javascript" src="js/extensions/revolution.extension.layeranimation.min.js"></script>
-<script type="text/javascript" src="js/extensions/revolution.extension.migration.min.js"></script>
-<script type="text/javascript" src="js/extensions/revolution.extension.navigation.min.js"></script>
-<script type="text/javascript" src="js/extensions/revolution.extension.parallax.min.js"></script>
-<script type="text/javascript" src="js/extensions/revolution.extension.slideanims.min.js"></script>
-<script type="text/javascript" src="js/extensions/revolution.extension.video.min.js"></script>					
+<script type="text/javascript" src="{{ asset('js/extensions/revolution.extension.actions.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/extensions/revolution.extension.carousel.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/extensions/revolution.extension.kenburn.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/extensions/revolution.extension.layeranimation.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/extensions/revolution.extension.migration.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/extensions/revolution.extension.navigation.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/extensions/revolution.extension.parallax.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/extensions/revolution.extension.slideanims.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/extensions/revolution.extension.video.min.js')}}"></script>					
