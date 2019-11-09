@@ -143,6 +143,49 @@
                 }, 3000);
             }
 
+            function deletePopup(title, message, record_id, url) {
+                bootbox.confirm({
+                    size: "small",
+                    title: title,
+                    message: "<i class=\"fa fa-exclamation-triangle\" style=\"color:red\"></i> " + message,
+                    buttons: {
+                        confirm: {
+                            label: 'Confirm',
+                            className: 'btn-danger',
+                        },
+                        cancel: {
+                            label: 'No',
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: url,
+                                type: 'post',
+                                data: {id: record_id},
+                                dataType: 'json',
+                                beforeSend: function () {
+                                    $(".overlay").show();
+                                },
+                                success: function (res) {
+                                    if (res.status)
+                                    {
+                                        t.draw();
+                                        $(".overlay").hide();
+                                        showSuccessMessage(res.message);
+                                    } else {
+                                        $(".overlay").hide();
+                                        showErrorMessage(res.message);
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+
+            }
+
+
             setTimeout(function () {
                 $(".alert").fadeOut();
             }, 3000);

@@ -69,6 +69,9 @@ $("#verifyOTP").validate({
 
 $("#registerUser").validate({
     rules: {
+        user_name: {
+            required: true,
+        },
         user_email_mobile: {
             required: true,
         },
@@ -80,9 +83,9 @@ $("#registerUser").validate({
             required: true,
             equalTo: "#user_password"
         },
-//            register_term: {
-//                required: true,
-//            }
+        register_term: {
+            required: true,
+        }
     },
     messages: {
         user_password: {
@@ -97,13 +100,13 @@ $("#registerUser").validate({
 //                maxlength: "Please enter 10 digit mobile number."
 //            }
     },
-//        errorPlacement: function (error, el) {
-//            if ($(el).attr('type') == 'checkbox') {
-//                error.appendTo("#reg_term_div_error");
-//            } else {
-//                error.insertAfter(el);
-//            }
-//        },
+    errorPlacement: function (error, el) {
+        if ($(el).attr('type') == 'checkbox') {
+            error.appendTo("#reg_term_div_error");
+        } else {
+            error.insertAfter(el);
+        }
+    },
     submitHandler: function (form) {
         let btn = $(form).find('input[type="submit"]');
         btn.val('Submitting . . .').attr('disabled', 'disabled');

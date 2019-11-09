@@ -28,7 +28,7 @@ class UserController extends Controller {
             $searchKeyword = $request->get('search')['value'];
 
             $query = User::query();
-            $query->where("user_type_id", "=", 3);
+            $query->where(["user_type_id" => 3, "deleted_at" => NULL]);
             if ($searchKeyword) {
                 $query->where("user_name", "LIKE", "%$searchKeyword%")
                         ->orWhere("mobile_number", "LIKE", "%$searchKeyword%")
@@ -41,16 +41,30 @@ class UserController extends Controller {
             $usersArray = [];
             $i = 0;
             foreach ($users as $user) {
-                $usersArray[$i]['name'] = $user->user_name;
+                $usersArray[$i]['name'] = $user->name;
                 $usersArray[$i]['email'] = $user->email_id;
                 $usersArray[$i]['mobileno'] = $user->mobile_number;
-                $usersArray[$i]['action'] = '';
+                $usersArray[$i]['action'] = '<a href="javaScript:void(0);" class="btn btn-danger btn-xs delete" id="' . $user->id . '" ><i class="fa fa-trash"></i> Delete </a>';
                 $i++;
             }
             $data['data'] = $usersArray;
             return $data;
         } catch (\Exception $e) {
             dd($e);
+        }
+    }
+
+    public function userDelete(Request $request) {
+        try {
+            $user = User::find($request->id);
+            if ($user) {
+                $user->delete();
+                return ['status' => true, "message" => "User deleted."];
+            } else {
+                return ['status' => false, "message" => "Something went be wrong."];
+            }
+        } catch (\Exception $ex) {
+            return ['status' => false, "message" => $ex->getMessage()];
         }
     }
 

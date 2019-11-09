@@ -17,7 +17,7 @@ class UserController extends Controller {
             $user_email_mobile = $request->get('user_email_mobile');
             $user_password = $request->get('user_password');
 
-            $exist = User::where(["user_type_id" => 3])->where(function($query) use($user_email_mobile) {
+            $exist = User::where(["user_type_id" => 3, "deleted_at" => NULL])->where(function($query) use($user_email_mobile) {
                         $query->where("email_id", $user_email_mobile)->orWhere("mobile_number", $user_email_mobile);
                     })->first();
             if ($exist) {
@@ -50,9 +50,10 @@ class UserController extends Controller {
                     }
 
                     $user->otp = $otp;
-                    $user->name = '';
+                    $user->name = $request->user_name;
                     $user->account_verified = 0;
                     $user->password = bcrypt($user_password);
+                    $user->deleted_at = NULL;
                     $user->save();
 
                     return response()->json([
@@ -116,7 +117,7 @@ class UserController extends Controller {
         if ($request->isMethod("post")) {
             $user_email_mobile = $request->get('forget_email_id');
 
-            $exist = User::where(["user_type_id" => 3])->where(function($query) use($user_email_mobile) {
+            $exist = User::where(["user_type_id" => 3, "deleted_at" => NULL])->where(function($query) use($user_email_mobile) {
                         $query->where("email_id", $user_email_mobile)->orWhere("mobile_number", $user_email_mobile);
                     })->first();
             if ($exist) {

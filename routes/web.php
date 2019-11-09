@@ -49,5 +49,6 @@ Route::namespace("Admin")->prefix('admin')->middleware(['auth'])->group(function
     Route::prefix('user')->group(function() {
         Route::get('/index', 'UserController@userIndex')->name('admin.user.index');
         Route::get('/users-list', 'UserController@usersList')->name('admin.user.list');
+        Route::post('/user-delete', 'UserController@userDelete')->name('admin.user.delete');
     });
 });

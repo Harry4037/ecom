@@ -20,7 +20,7 @@
                             <!--<th>Sr.No.</th>-->
                             <th>Name</th>
                             <th>Email Address</th>
-                            <th>PhoneNo.</th>
+                            <th>Mobile Number</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -35,31 +35,42 @@
 
 @section('script')
 <script>
-    $(document).ready(function () {
-        var t = $('#list').DataTable({
-            lengthMenu: [[10, 25, 50], [10, 25, 50]],
-            searching: true,
-            processing: true,
-            serverSide: true,
-            stateSave: true,
-            language: {
-                'loadingRecords': '&nbsp;',
-                'processing': '<i class="fa fa-refresh fa-spin"></i>'
-            },
-            ajax: "{{route('admin.user.list')}}",
-            "columns": [
+
+    var t = $('#list').DataTable({
+        lengthMenu: [[10, 25, 50], [10, 25, 50]],
+        searching: true,
+        processing: true,
+        serverSide: true,
+        stateSave: true,
+        language: {
+            'loadingRecords': '&nbsp;',
+            'processing': '<i class="fa fa-refresh fa-spin"></i>'
+        },
+        ajax: "{{route('admin.user.list')}}",
+        "columns": [
 //                {"data": null,
 //                    render: function (data, type, row, meta) {
 //                        return meta.row + meta.settings._iDisplayStart + 1;
 //                    }
 //                },
-                {"data": "name", sortable: false},
-                {"data": "email", sortable: false},
-                {"data": "mobileno", sortable: false},
-                {"data": "action", sortable: false},
-            ]
-        });
+            {"data": "name", sortable: false},
+            {"data": "email", sortable: false},
+            {"data": "mobileno", sortable: false},
+            {"data": "action", sortable: false},
+        ]
+    });
 
+    $(document).ready(function () {
+
+        $(document).on("click", ".delete", function () {
+            var record_id = this.id;
+            deletePopup(
+                    "Deleting User",
+                    "Are you sure want to delete this user?",
+                    record_id,
+                    "{{route('admin.user.delete')}}"
+                    );
+        });
     });
 </script>
 @endsection

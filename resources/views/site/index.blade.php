@@ -113,6 +113,10 @@
                                                     <form method="post" action="{{route('site.user.register')}}" id="registerUser">
                                                         @csrf
                                                         <fieldset class="form-group mt-4">
+                                                            <label>Enter Name</label>
+                                                            <input name="user_name" id="user_name" type="text" class="form-control" placeholder="Name">
+                                                        </fieldset>
+                                                        <fieldset class="form-group mt-4">
                                                             <label>Enter Email/Mobile</label>
                                                             <input name="user_email_mobile" id="user_email_mobile" type="text" class="form-control" placeholder="Email Address/Mobile Number">
                                                         </fieldset>
@@ -124,11 +128,11 @@
                                                             <label>Enter Confirm Password </label>
                                                             <input name="user_c_password" id="user_c_password" type="password" class="form-control" placeholder="********">
                                                         </fieldset>
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="register_term" name="register_term">
-                                                            <label class="custom-control-label" for="customCheck2">I Agree with <a href="#">Term and Conditions</a></label>
-                                                        </div>
-                                                        <div id="reg_term_div_error"></div>
+                                                        <fieldset class="form-group">
+                                                            <input type="checkbox" id="register_term" name="register_term">
+                                                            <label for="customCheck2">I Agree with <a href="#">Term and Conditions</a></label>
+                                                            <div id="reg_term_div_error"></div>
+                                                        </fieldset>
 
                                                         <fieldset class="form-group">
                                                             <input type="submit" class="btn btn-lg btn-primary btn-block" value="Create Your Account">

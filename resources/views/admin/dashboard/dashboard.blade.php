@@ -7,7 +7,7 @@
         <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="tile-stats">
                 <div class="icon"><i class="fa fa-users"></i></div>
-                <div class="count">0</div>
+                <div class="count">{{$activeUsers}}</div>
                 <h3>Active User</h3>
                 <!--<p>Lorem ipsum psdea itgum rixt.</p>-->
             </div>
@@ -15,7 +15,7 @@
         <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="tile-stats">
                 <div class="icon"><i class="fa fa-users"></i></div>
-                <div class="count">0</div>
+                <div class="count">{{$inactiveUsers}}</div>
                 <h3>Inactive User</h3>
                 <!--<p>Lorem ipsum psdea itgum rixt.</p>-->
             </div>
