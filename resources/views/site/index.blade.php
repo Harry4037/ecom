@@ -50,8 +50,8 @@
                                                     <form method="post" action="{{route('site.user.login')}}" id="loginUser">
                                                         @csrf
                                                         <fieldset class="form-group mt-4">
-                                                            <label>Enter Email</label>
-                                                            <input id="email_id" name="email_id" type="text" class="form-control" placeholder="Email Address">
+                                                            <label>Enter Email/Mobile Number</label>
+                                                            <input id="email_id" name="email_id" type="text" class="form-control" placeholder="Email Address/Mobile Number">
                                                         </fieldset>
                                                         <fieldset class="form-group">
                                                             <label>Enter Password</label>
