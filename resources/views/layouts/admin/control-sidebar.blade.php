@@ -7,7 +7,16 @@
                 <a href="{{ route('admin.dashboard') }}"><i class="fa fa-dashboard"></i>Dashboard</a>
             </li>
             <li>
+                <a href="{{ route('admin.banner.index') }}"><i class="fa fa-flag"></i>Banner</a>
+            </li>
+            <li>
                 <a href="{{ route('admin.user.index') }}"><i class="fa fa-users"></i>Users</a>
+            </li>
+            <li>
+                <a href="{{ route('admin.category.index') }}"><i class="fa fa-bars"></i>Category</a>
+            </li>
+            <li>
+                <a href="{{ route('admin.sub-category.index') }}"><i class="fa fa-bars"></i>Sub Category</a>
             </li>
         </ul>
     </div>

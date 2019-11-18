@@ -51,4 +51,31 @@ Route::namespace("Admin")->prefix('admin')->middleware(['auth'])->group(function
         Route::get('/users-list', 'UserController@usersList')->name('admin.user.list');
         Route::post('/user-delete', 'UserController@userDelete')->name('admin.user.delete');
     });
+
+    Route::prefix('category')->group(function() {
+        Route::get('/index', 'CategoryController@categoryIndex')->name('admin.category.index');
+        Route::get('/list', 'CategoryController@categoryList')->name('admin.category.list');
+        Route::match(['post', 'get'], '/create', 'CategoryController@categoryCreate')->name('admin.category.create');
+        Route::match(['post', 'get'], '/edit/{category}', 'CategoryController@categoryEdit')->name('admin.category.edit');
+        Route::post('/delete', 'CategoryController@categoryDelete')->name('admin.category.delete');
+        Route::match(['get', 'post'], '/status', 'CategoryController@categoryStatus')->name('admin.category.status');
+    });
+
+    Route::prefix('sub-category')->group(function() {
+        Route::get('/index', 'SubCategoryController@subcategoryIndex')->name('admin.sub-category.index');
+        Route::get('/list', 'SubCategoryController@subcategoryList')->name('admin.sub-category.list');
+        Route::match(['post', 'get'], '/create', 'SubCategoryController@subcategoryCreate')->name('admin.sub-category.create');
+        Route::match(['post', 'get'], '/edit/{subcategory}', 'SubCategoryController@subcategoryEdit')->name('admin.sub-category.edit');
+        Route::post('/delete', 'SubCategoryController@subcategoryDelete')->name('admin.sub-category.delete');
+        Route::match(['get', 'post'], '/status', 'SubCategoryController@subcategoryStatus')->name('admin.sub-category.status');
+    });
+
+    Route::prefix('banner')->group(function() {
+        Route::get('/', 'BannerController@index')->name('admin.banner.index');
+        Route::get('/list', 'BannerController@bannerList')->name('admin.banner.list');
+        Route::match(['get', 'post'], '/create', 'BannerController@bannerCreate')->name('admin.banner.create');
+        Route::match(['get', 'post'], '/edit/{banner}', 'BannerController@bannerEdit')->name('admin.banner.edit');
+        Route::match(['get', 'post'], '/status', 'BannerController@bannerStatus')->name('admin.banner.status');
+        Route::post('/delete', 'BannerController@bannerDelete')->name('admin.banner.delete');
+    });
 });
