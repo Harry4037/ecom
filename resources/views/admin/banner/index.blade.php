@@ -4,6 +4,7 @@
 
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
+        @include('layouts.admin.breadcrumbs')
         @include('errors.errors-and-messages')
         <div class="x_panel">
             <div class="x_title">
@@ -18,6 +19,7 @@
                     <thead>
                         <tr>
                             <th>Banner</th>
+                            <th>Page Url</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -47,6 +49,7 @@
         ajax: "{{route('admin.banner.list')}}",
         "columns": [
             {"data": "banner", sortable: false},
+            {"data": "page_url", sortable: false},
             {"data": "status", sortable: false},
             {"data": "action", sortable: false},
         ]

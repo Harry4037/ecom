@@ -4,6 +4,7 @@
 
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
+        @include('layouts.admin.breadcrumbs')
         @include('errors.errors-and-messages')
         <div class="x_panel">
             <div class="x_title">
@@ -13,7 +14,7 @@
             <div class="x_content">
                 <br>
 
-                <form class="form-horizontal form-label-left" action="{{ route('admin.category.create') }}" method="post" id="addCategoryForm">
+                <form class="form-horizontal form-label-left" action="{{ route('admin.category.create') }}" method="post" id="addCategoryForm" enctype="multipart/form-data">
                     @csrf
                     @include('admin.category._form')
                     <div class="ln_solid"></div>
@@ -39,6 +40,10 @@
 
         $("#addCategoryForm").validate({
             rules: {
+                category_image: {
+                    required: true,
+                    accept: "image/*",
+                },
                 category_name: {
                     required: true
                 },

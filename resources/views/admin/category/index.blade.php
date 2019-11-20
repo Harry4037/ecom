@@ -4,6 +4,7 @@
 
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
+        @include('layouts.admin.breadcrumbs')
         @include('errors.errors-and-messages')
         <div class="x_panel">
             <div class="x_title">
@@ -17,6 +18,7 @@
                 <table id="list" class="table table-striped table-bordered text-center">
                     <thead>
                         <tr>
+                            <th>Thumbnail</th>
                             <th>Name</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -46,6 +48,7 @@
         },
         ajax: "{{route('admin.category.list')}}",
         "columns": [
+            {"data": "thumbnail", sortable: false},
             {"data": "name", sortable: false},
             {"data": "status", sortable: false},
             {"data": "action", sortable: false},

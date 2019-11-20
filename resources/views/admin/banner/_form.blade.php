@@ -13,6 +13,12 @@
 </div>
 @endif
 <div class="form-group">
+    <label class="control-label col-md-4 col-sm-4 col-xs-12">Page Url <span class="error">*</span></label>
+    <div class="col-md-4 col-sm-6 col-xs-6">
+        <input type="text" class="form-control" name="page_url" id="page_url" placeholder="Page Url" value="@if(isset($banner)){{$banner->page_url}}@endif">
+    </div>
+</div>
+<div class="form-group">
     <label class="control-label col-md-4 col-sm-4 col-xs-12">Is Active <span class="error">*</span></label>
     <div class="col-md-4 col-sm-6 col-xs-6">
         <select class="form-control" name="banner_status" id="banner_status">

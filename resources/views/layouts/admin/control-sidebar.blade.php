@@ -6,18 +6,32 @@
             <li>
                 <a href="{{ route('admin.dashboard') }}"><i class="fa fa-dashboard"></i>Dashboard</a>
             </li>
-            <li>
-                <a href="{{ route('admin.banner.index') }}"><i class="fa fa-flag"></i>Banner</a>
+            <li @if(in_array(Route::currentRouteName(), ['admin.banner.create','admin.banner.edit']))
+                 {{ "class=current-page" }}
+                 @endif >
+                 <a href="{{ route('admin.banner.index') }}"><i class="fa fa-flag-checkered"></i>Banner</a>
+            </li>
+            <li @if(in_array(Route::currentRouteName(), ['admin.category.create','admin.category.edit','admin.sub-category.create','admin.sub-category.edit']))
+                 {{ "class=active" }}
+                 @endif>
+                 <a><i class="fa fa-bars"></i> Categories <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu" @if(in_array(Route::currentRouteName(), ['admin.category.create', 'admin.category.edit','admin.sub-category.create', 'admin.sub-category.edit']))
+                    {{ "style=display:block;" }}
+                    @endif>
+                    <li @if(in_array(Route::currentRouteName(), ['admin.category.create', 'admin.category.edit']))
+                     {{ "class=current-page" }}
+                     @endif
+                     ><a href="{{ route('admin.category.index') }}">Category</a></li>
+                    <li @if(in_array(Route::currentRouteName(), ['admin.sub-category.create', 'admin.sub-category.edit']))
+                         {{ "class=current-page" }}
+                         @endif
+                         ><a href="{{ route('admin.sub-category.index') }}">Sub Category</a></li>
+                </ul>
             </li>
             <li>
                 <a href="{{ route('admin.user.index') }}"><i class="fa fa-users"></i>Users</a>
             </li>
-            <li>
-                <a href="{{ route('admin.category.index') }}"><i class="fa fa-bars"></i>Category</a>
-            </li>
-            <li>
-                <a href="{{ route('admin.sub-category.index') }}"><i class="fa fa-bars"></i>Sub Category</a>
-            </li>
+
         </ul>
     </div>
 </div>

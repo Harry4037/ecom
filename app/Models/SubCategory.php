@@ -13,4 +13,8 @@ class SubCategory extends Eloquent {
         return $this->belongsTo('App\Models\Category', 'category_id');
     }
 
+    public function getThumbnailAttribute($value) {
+        return $value ? asset('storage/subcategory/' . $value) : "";
+    }
+
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\Category;
@@ -42,6 +43,7 @@ class CategoryController extends Controller {
             $i = 0;
             foreach ($categories as $category) {
                 $categoryArray[$i]['name'] = $category->name;
+                $categoryArray[$i]['thumbnail'] = '<img class="img-bordered" height="50" width="50" src=' . $category->thumbnail . '>';
                 $checked_status = $category->is_active ? "checked" : '';
                 $categoryArray[$i]['status'] = "<label class='switch'><input  type='checkbox' class='category_status' id=" . $category->id . " data-status=" . $category->is_active . " " . $checked_status . "><span class='slider round'></span></label>";
                 $categoryArray[$i]['action'] = '<a href="' . route('admin.category.edit', $category) . '" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'
@@ -68,8 +70,12 @@ class CategoryController extends Controller {
                 if ($validator->fails()) {
                     return redirect()->route('admin.category.add')->withErrors($validator)->withInput();
                 }
-                $category = new Category();
+                $category_image = $request->file("category_image");
+                $categoryImg = Storage::disk('public')->put('category', $category_image);
+                $category_file_name = basename($categoryImg);
 
+                $category = new Category();
+                $category->thumbnail = $category_file_name;
                 $category->name = $request->category_name;
                 $category->is_active = $request->is_active;
 
@@ -103,6 +109,12 @@ class CategoryController extends Controller {
                             ])->withErrors($validator)->withInput();
                 }
 
+                if ($request->hasFile('category_image')) {
+                    $category_image = $request->file("category_image");
+                    $categoryImage = Storage::disk('public')->put('category', $category_image);
+                    $category_file_name = basename($categoryImage);
+                    $category->thumbnail = $category_file_name;
+                }
                 $category->name = $request->category_name;
                 $category->is_active = $request->is_active;
 

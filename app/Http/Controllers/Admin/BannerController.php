@@ -40,6 +40,7 @@ class BannerController extends Controller {
             $bannersArray = [];
             foreach ($banners as $k => $banner) {
                 $bannersArray[$k]['banner'] = '<img class="img-bordered" height="100" width="200" src=' . $banner->image_name . '>';
+                $bannersArray[$k]['page_url'] = $banner->page_url;
                 $checked_status = $banner->is_active ? "checked" : '';
                 $bannersArray[$k]['status'] = "<label class='switch'><input  type='checkbox' class='banner_status' id=" . $banner->id . " data-status=" . $banner->is_active . " " . $checked_status . "><span class='slider round'></span></label>";
                 $bannersArray[$k]['action'] = '<a href="' . route('admin.banner.edit', $banner) . '" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>&nbsp;'
@@ -69,6 +70,7 @@ class BannerController extends Controller {
 
                 $banner = new Banner();
                 $banner->image_name = $banner_file_name;
+                $banner->page_url = $request->page_url;
                 $banner->is_active = $request->banner_status;
                 $banner->created_by = auth()->user()->id;
 
@@ -136,11 +138,12 @@ class BannerController extends Controller {
                     $banner->image_name = $banner_file_name;
                 }
                 $banner->is_active = $request->banner_status;
+                $banner->page_url = $request->page_url;
 
                 if ($banner->save()) {
-                    return redirect()->route('admin.banner.index')->with('status', 'Banner has been updated successfully.');
+                    return redirect()->route('admin.banner.edit', $banner)->with('status', 'Banner has been updated successfully.');
                 } else {
-                    return redirect()->route('admin.banner.index')->with('error', 'Something went be wrong.');
+                    return redirect()->route('admin.banner.edit', $banner)->with('error', 'Something went be wrong.');
                 }
             }
 
