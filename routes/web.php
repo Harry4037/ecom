@@ -15,6 +15,8 @@
 
 Route::get('/test', 'TestController@test');
 
+Route::get('/multistep', 'TestController@demomultistep');
+
 Route::namespace("Site")->group(function() {
     Route::get('/', 'LoginController@showLoginForm')->name('site.user.login');
     Route::get('/login', 'LoginController@showLoginForm')->name('site.user.login');

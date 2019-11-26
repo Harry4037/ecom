@@ -10,4 +10,9 @@ class HomeController extends Controller {
         return view('site.index');
     }
 
+    public function demomultistep()
+    {
+    	return view('site.multistep');
+    }
+
 }

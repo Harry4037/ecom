@@ -18,4 +18,10 @@ class TestController extends Controller {
         dd($cars);
     }
 
+    public function demomultistep()
+    {
+    	return view('site.multistep');
+    }
+
+
 }
