@@ -31,6 +31,9 @@
             <li>
                 <a href="{{ route('admin.user.index') }}"><i class="fa fa-users"></i>Users</a>
             </li>
+            <li>
+                <a href="{{ route('admin.vendor.index') }}"><i class="fa fa-users"></i>Vendors</a>
+            </li>
 
         </ul>
     </div>

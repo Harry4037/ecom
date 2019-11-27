@@ -15,7 +15,7 @@
 
 Route::get('/test', 'TestController@test');
 
-Route::get('/multistep', 'TestController@demomultistep');
+//Route::get('/multistep', 'TestController@demomultistep');
 
 Route::namespace("Site")->group(function() {
     Route::get('/', 'LoginController@showLoginForm')->name('site.user.login');
@@ -27,6 +27,8 @@ Route::namespace("Site")->group(function() {
     Route::post('/verify-otp', 'UserController@verifyOTP')->name('site.user.verify-otp');
     Route::post('/forget-link', 'UserController@sendForgetPasswordLink')->name('site.user.forget-link');
     Route::match(['post', 'get'], '/reset-password/{passcode}', 'UserController@resetPassword')->name('site.user.reset-password');
+
+    Route::match(['get', 'post'], '/vendor-registration', 'VendorController@register')->name('site.vendor.register');
 });
 
 
@@ -52,6 +54,12 @@ Route::namespace("Admin")->prefix('admin')->middleware(['auth'])->group(function
         Route::get('/index', 'UserController@userIndex')->name('admin.user.index');
         Route::get('/users-list', 'UserController@usersList')->name('admin.user.list');
         Route::post('/user-delete', 'UserController@userDelete')->name('admin.user.delete');
+    });
+
+    Route::prefix('vendor')->group(function() {
+        Route::get('/index', 'VendorController@userIndex')->name('admin.vendor.index');
+        Route::get('/vendors-list', 'VendorController@usersList')->name('admin.vendor.list');
+        Route::post('/vendor-delete', 'VendorController@userDelete')->name('admin.vendor.delete');
     });
 
     Route::prefix('category')->group(function() {

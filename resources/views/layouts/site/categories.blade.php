@@ -17,22 +17,18 @@
             <ul class="navbar-nav mr-auto main-nav-left">
                 @if($categories)
                 @foreach($categories as $category)
-                <li class="nav-item">
-                    <a class="nav-link" href="/">{{$category->name}}</a>
-                </li>
-                @endforeach
-                @endif
 
-
+                @if(count($category->subcategories) > 0)
                 <li class="nav-item dropdown mega-drop-main">
                     <a class="nav-link dropdown-toggle" href="product-grid.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        WOMEN
+                        {{$category->name}}
                     </a>
                     <div class="dropdown-menu mega-drop  shadow-sm border-0" aria-labelledby="navbarDropdown">
                         <div class="row ml-0 mr-0">
+                            @foreach($category->subcategories as $sub)
                             <div class="col-lg-2 col-md-2">
                                 <div class="mega-list">
-                                    <a class="mega-title" href="product-grid.html">Lingerie & Sleepwear</a>
+                                    <a class="mega-title" href="product-grid.html">{{$sub->name}}</a>
                                     <a href="product-grid.html">Bras & Lingerie Sets</a>
                                     <a href="product-grid.html">Briefs</a>
                                     <a href="product-grid.html">Shapewear</a>
@@ -44,149 +40,17 @@
                                     <a href="product-grid.html">Rain Jackets</a>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-2">
-                                <div class="mega-list">
-                                    <a class="mega-title" href="product-grid.html">Bottomwear</a>
-                                    <a href="product-grid.html">                    Jeans</a>
-                                    <a href="product-grid.html">Casual Trousers</a>
-                                    <a href="product-grid.html">Formal Trousers</a>
-                                    <a href="product-grid.html">Shorts</a>
-                                    <a href="product-grid.html">Track Pants & Joggers</a>
-                                    <a href="product-grid.html">T-Shirts</a>
-                                    <a href="product-grid.html">Sweatshirts</a>
-                                    <a href="product-grid.html">Casual Shirts</a>
-                                    <a href="product-grid.html">Formal Shirts</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-2">
-                                <div class="mega-list">
-                                    <a class="mega-title" href="product-grid.html">Western Wear</a>
-                                    <a href="product-grid.html">Sweaters</a>
-                                    <a href="product-grid.htproduct-grid.htmll">Jackets</a>
-                                    <a href="product-grid.html">Blazers & Coats</a>
-                                    <a href="product-grid.html">Suits</a>
-                                    <a href="product-grid.html">Rain Jackets</a>
-                                    <a href="product-grid.html">T-Shirts</a>
-                                    <a href="product-grid.html">Casual Shirts</a>
-                                    <a href="product-grid.html">Formal Shirts</a>
-                                    <a href="product-grid.html">Sweatshirts</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-2">
-                                <div class="mega-list">
-                                    <a class="mega-title" href="product-grid.html">Footwear</a>
-                                    <a href="product-grid.html">Casual Shoes</a>
-                                    <a href="product-grid.html">Sports Shoes</a>
-                                    <a href="product-grid.html">Formal Shoes</a>
-                                    <a href="product-grid.html">Sandals & Floaters</a>
-                                    <a href="product-grid.html">Flip Flops</a>
-                                    <a href="product-grid.html">Socks</a>
-                                    <a href="product-grid.html">Formal Shirts</a>
-                                    <a href="product-grid.html">Sneakers</a>
-                                    <a href="product-grid.html">Sweatshirts</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-2">
-                                <div class="mega-list">
-                                    <a class="mega-title" href="product-grid.html">Lingerie & Sleepwear</a>
-                                    <a href="product-grid.html">Bras & Lingerie Sets</a>
-                                    <a href="product-grid.html">Briefs</a>
-                                    <a href="product-grid.html">Shapewear</a>
-                                    <a href="product-grid.html">Sleepwear & Loungewear</a>
-                                    <a href="product-grid.html">Swimwear</a>
-                                    <a href="product-grid.html">Camisoles & Thermals</a>
-                                    <a href="product-grid.html">Blazers & Coats</a>
-                                    <a href="product-grid.html">Suits</a>
-                                    <a href="product-grid.html">Rain Jackets</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-2">
-                                <div class="mega-list">
-                                    <a class="mega-title" href="product-grid.html">Bottomwear</a>
-                                    <a href="product-grid.html">                    Jeans</a>
-                                    <a href="product-grid.html">Casual Trousers</a>
-                                    <a href="product-grid.html">Formal Trousers</a>
-                                    <a href="product-grid.html">Shorts</a>
-                                    <a href="product-grid.html">Track Pants & Joggers</a>
-                                    <a href="product-grid.html">T-Shirts</a>
-                                    <a href="product-grid.html">Sweatshirts</a>
-                                    <a href="product-grid.html">Casual Shirts</a>
-                                    <a href="product-grid.html">Formal Shirts</a>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
-                </li>
-                <li class="nav-item dropdown mega-drop-main">
-                    <a class="nav-link dropdown-toggle" href="product-grid.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        MEN</a>
-                    <div class="dropdown-menu mega-drop  shadow-sm border-0" aria-labelledby="navbarDropdown">
-                        <div class="row ml-0 mr-0">
-                            <div class="col-lg-3 col-sm-3 col-xs-3 col-md-3">
-                                <div class="mega-list">
-                                    <a class="mega-title" href="product-grid.html">Topwear</a>
-                                    <a href="product-grid.html">T-Shirts</a>
-                                    <a href="product-grid.html">Casual Shirts</a>
-                                    <a href="product-grid.html">Formalproduct-grid.htmlShirts</a>
-                                    <a href="product-grid.html">Sweatshirts</a>
-                                    <a href="product-grid.html">Sweaters</a>
-                                    <a href="product-grid.html">Jackets</a>
-                                    <a href="product-grid.html">Blazers & Coats</a>
-                                    <a href="product-grid.html">Suits</a>
-                                    <a href="product-grid.html">Rain Jackets</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-3 col-xs-3 col-md-3">
-                                <div class="mega-list">
-                                    <a class="mega-title" href="product-grid.html">Western Wear</a>
-                                    <a href="product-grid.html">Sweaters</a>
-                                    <a href="product-grid.html">Jackets</a>
-                                    <a href="product-grid.html">Blazers & Coats</a>
-                                    <a href="product-grid.html">Suits</a>
-                                    <a href="product-grid.html">Rain Jackets</a>
-                                    <a href="product-grid.html">T-Shirts</a>
-                                    <a href="product-grid.html">Casual Shirts</a>
-                                    <a href="product-grid.html">Formal Shirts</a>
-                                    <a href="product-grid.html">Sweatshirts</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-3 col-xs-3 col-md-3">
-                                <div class="mega-list">
-                                    <a class="mega-title" href="product-grid.html">Bottomwear</a>
-                                    <a href="product-grid.html">                    Jeans</a>
-                                    <a href="product-grid.html">Casual Trousers</a>
-                                    <a href="product-grid.html">Formal Trousers</a>
-                                    <a href="product-grid.html">Shorts</a>
-                                    <a href="product-grid.html">Track Pants & Joggers</a>
-                                    <a href="product-grid.html">T-Shirts</a>
-                                    <a href="product-grid.html">Sweatshirts</a>
-                                    <a href="product-grid.html">Casual Shirts</a>
-                                    <a href="product-grid.html">Formal Shirts</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-3 col-xs-3 col-md-3">
-                                <div class="mega-list">
-                                    <a class="mega-title" href="product-grid.html">Footwear</a>
-                                    <a href="product-grid.html">Casual Shoes</a>
-                                    <a href="product-grid.html">Sports Shoes</a>
-                                    <a href="product-grid.html">Formal Shoes</a>
-                                    <a href="product-grid.html">Sneakers</a>
-                                    <a href="product-grid.html">Sweatshirts</a>
-                                    <a href="product-grid.html">Sandals & Floaters</a>
-                                    <a href="product-grid.html">Flip Flops</a>
-                                    <a href="product-grid.html">Socks</a>
-                                    <a href="product-grid.html">Formal Shirts</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+                </li> 
+                @else
                 <li class="nav-item">
-                    <a class="nav-link" href="about-us.html">About Us</a>
+                    <a class="nav-link" href="/">{{$category->name}}</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact-us.html">Contact Us</a>
-                </li>                        
+                @endif
+                @endforeach
+                @endif                      
             </ul>
         </div>
     </div>
