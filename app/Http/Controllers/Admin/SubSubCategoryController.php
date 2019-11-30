@@ -10,8 +10,9 @@ use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\SubSubCategory;
 
-class SubCategoryController extends Controller {
+class SubSubCategoryController extends Controller {
 
     public function subcategoryIndex() {
 
@@ -22,7 +23,7 @@ class SubCategoryController extends Controller {
             'vendors/datatables.net/js/jquery.dataTables.min.js',
             'vendors/datatables.net-bs/js/dataTables.bootstrap.min.js',
         ];
-        return view('admin.sub-category.index', ['js' => $js, 'css' => $css]);
+        return view('admin.sub-sub-category.index', ['js' => $js, 'css' => $css]);
     }
 
     public function subcategoryList(Request $request) {
@@ -31,8 +32,8 @@ class SubCategoryController extends Controller {
             $limit = $request->get('length');
             $searchKeyword = $request->get('search')['value'];
 
-            $query = SubCategory::query();
-            $query->with('category')->where(["deleted_at" => NULL]);
+            $query = SubSubCategory::query();
+            $query->with('category')->with('subcategory')->where(["deleted_at" => NULL]);
             if ($searchKeyword) {
                 $query->where("name", "LIKE", "%$searchKeyword%");
             }
@@ -45,9 +46,10 @@ class SubCategoryController extends Controller {
                 $categoryArray[$i]['name'] = $category->name;
                 $categoryArray[$i]['thumbnail'] = '<img class="img-bordered" height="50" width="50" src=' . $category->thumbnail . '>';
                 $categoryArray[$i]['cat_name'] = $category->category ? $category->category->name : '';
+                $categoryArray[$i]['sub_cat_name'] = $category->subcategory ? $category->subcategory->name : '';
                 $checked_status = $category->is_active ? "checked" : '';
                 $categoryArray[$i]['status'] = "<label class='switch'><input  type='checkbox' class='subcategory_status' id=" . $category->id . " data-status=" . $category->is_active . " " . $checked_status . "><span class='slider round'></span></label>";
-                $categoryArray[$i]['action'] = '<a href="' . route('admin.sub-category.edit', $category) . '" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'
+                $categoryArray[$i]['action'] = '<a href="' . route('admin.sub-sub-category.edit', $category) . '" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>'
                         . '<a href="javaScript:void(0);" class="btn btn-danger btn-xs delete" id="' . $category->id . '" ><i class="fa fa-trash"></i> Delete </a>';
                 $i++;
             }
@@ -62,97 +64,97 @@ class SubCategoryController extends Controller {
         try {
             $categories = Category::where("deleted_at", NULL)->get();
             if ($request->isMethod("post")) {
-
                 $validator = Validator::make($request->all(), [
-                            'sub_category_name' => [
+                            'sub_sub_category_name' => [
                                 'bail',
                                 'required',
                             ],
                 ]);
                 if ($validator->fails()) {
-                    return redirect()->route('admin.category.add')->withErrors($validator)->withInput();
+                    return redirect()->route('admin.sub-sub-category.add')->withErrors($validator)->withInput();
                 }
                 $category_image = $request->file("category_image");
-                $categoryImg = Storage::disk('public')->put('subcategory', $category_image);
+                $categoryImg = Storage::disk('public')->put('subsubcategory', $category_image);
                 $category_file_name = basename($categoryImg);
 
-                $subCategory = new SubCategory();
+                $subCategory = new SubSubCategory();
                 $subCategory->thumbnail = $category_file_name;
                 $subCategory->category_id = $request->category_id;
-                $subCategory->name = $request->sub_category_name;
+                $subCategory->sub_category_id = $request->sub_category_id;
+                $subCategory->name = $request->sub_sub_category_name;
                 $subCategory->is_active = $request->is_active;
-                $subCategory->deleted_at = NULL;
 
                 if ($subCategory->save()) {
 
-                    return redirect()->route('admin.sub-category.index')->with('status', 'Sub Category has been added successfully.');
+                    return redirect()->route('admin.sub-sub-category.index')->with('status', 'Sub Sub Category has been added successfully.');
                 } else {
-                    return redirect()->route('admin.sub-category.index')->with('error', 'Something went be wrong.');
+                    return redirect()->route('admin.sub-sub-category.index')->with('error', 'Something went be wrong.');
                 }
             }
 
-            return view('admin.sub-category.create', [
+            return view('admin.sub-sub-category.create', [
                 'categories' => $categories
             ]);
         } catch (\Exception $ex) {
-            return redirect()->route('admin.sub-category.index')->with('error', $ex->getMessage());
+            return redirect()->route('admin.sub-sub-category.index')->with('error', $ex->getMessage());
         }
     }
 
-    public function subcategoryEdit(Request $request, SubCategory $subcategory) {
+    public function subcategoryEdit(Request $request, SubSubCategory $subsubcategory) {
         try {
+
             $categories = Category::where("deleted_at", NULL)->get();
+            $subcategories = SubCategory::where(["category_id" => $subsubcategory->category_id, "is_active" => "1", "deleted_at" => NULL])->get();
 
             if ($request->isMethod("post")) {
 
                 $validator = Validator::make($request->all(), [
-                            'sub_category_name' => [
+                            'sub_sub_category_name' => [
                                 'bail',
                                 'required',
                             ],
                 ]);
                 if ($validator->fails()) {
-                    return redirect()->route('admin.sub-category.edit', [
-                                'categories' => $categories,
-                                'subcategory' => $subcategory
+                    return redirect()->route('admin.sub-sub-category.edit', [
+                                'subsubcategory' => $subsubcategory
                             ])->withErrors($validator)->withInput();
                 }
                 if ($request->hasFile('category_image')) {
                     $category_image = $request->file("category_image");
-                    $categoryImage = Storage::disk('public')->put('subcategory', $category_image);
+                    $categoryImage = Storage::disk('public')->put('subsubcategory', $category_image);
                     $category_file_name = basename($categoryImage);
-                    $subcategory->thumbnail = $category_file_name;
+                    $subsubcategory->thumbnail = $category_file_name;
                 }
-                $subcategory->category_id = $request->category_id;
-                $subcategory->name = $request->sub_category_name;
-                $subcategory->is_active = $request->is_active;
+                $subsubcategory->category_id = $request->category_id;
+                $subsubcategory->sub_category_id = $request->sub_category_id;
+                $subsubcategory->name = $request->sub_sub_category_name;
+                $subsubcategory->is_active = $request->is_active;
 
-                if ($subcategory->save()) {
+                if ($subsubcategory->save()) {
 
-                    return redirect()->route('admin.sub-category.edit', [
-                                'categories' => $categories,
-                                'subcategory' => $subcategory
-                            ])->with('status', 'Sub Category has been updated successfully.');
+                    return redirect()->route('admin.sub-sub-category.edit', [
+                                'subsubcategory' => $subsubcategory,
+                            ])->with('status', 'Sub Sub Category has been updated successfully.');
                 } else {
-                    return redirect()->route('admin.sub-category.edit', [
-                                'categories' => $categories,
-                                'subcategory' => $subcategory
+                    return redirect()->route('admin.sub-sub-category.edit', [
+                                'subsubcategory' => $subsubcategory,
                             ])->with('error', 'Something went be wrong.');
                 }
             }
 
-            return view('admin.sub-category.edit', [
+            return view('admin.sub-sub-category.edit', [
                 'categories' => $categories,
-                'subcategory' => $subcategory,
+                'subcategories' => $subcategories,
+                'subsubcategory' => $subsubcategory,
             ]);
         } catch (\Exception $ex) {
-            return redirect()->route('admin.sub-category.index')->with('error', $ex->getMessage());
+            return redirect()->route('admin.sub-sub-category.index')->with('error', $ex->getMessage());
         }
     }
 
     public function subcategoryDelete(Request $request) {
         try {
-            $category = SubCategory::find($request->id);
+            $category = SubSubCategory::find($request->id);
             if ($category) {
                 $category->delete();
                 return ['status' => true, "message" => "Sub Category deleted."];
@@ -167,7 +169,7 @@ class SubCategoryController extends Controller {
     public function subcategoryStatus(Request $request) {
         try {
             if ($request->isMethod('post')) {
-                $banner = SubCategory::findOrFail($request->record_id);
+                $banner = SubSubCategory::findOrFail($request->record_id);
                 $banner->is_active = $request->status;
                 if ($banner->save()) {
                     return ['status' => true, 'data' => ["status" => $request->status, "message" => "Status updated successfully."]];
@@ -180,6 +182,11 @@ class SubCategoryController extends Controller {
         } catch (\Exception $e) {
             return ['status' => false, "message" => $e->getMessage()];
         }
+    }
+
+    public function subcategoryListHtml(Request $request) {
+        $subCategories = SubCategory::where(["category_id" => $request->cat_id, "is_active" => "1", "deleted_at" => NULL])->get();
+        return view('admin.sub-sub-category.subcategory-list', ['subCategories' => $subCategories]);
     }
 
 }

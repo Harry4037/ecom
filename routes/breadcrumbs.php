@@ -51,7 +51,33 @@ Breadcrumbs::for('admin.sub-category.create', function ($trail) {
     $trail->parent('admin.sub-category.index');
     $trail->push("Create", route('admin.sub-category.create'));
 });
-Breadcrumbs::for('admin.sub-category.edit', function ($trail, $banner) {
+Breadcrumbs::for('admin.sub-category.edit', function ($trail, $subcategory) {
     $trail->parent('admin.sub-category.index');
-    $trail->push("Edit", route('admin.sub-category.edit', $banner));
+    $trail->push("Edit", route('admin.sub-category.edit', $subcategory));
+});
+
+// Home > [Sub Sub Category]
+Breadcrumbs::for('admin.sub-sub-category.index', function ($trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push("Sub Sub Category", route('admin.sub-sub-category.index'));
+});
+Breadcrumbs::for('admin.sub-sub-category.create', function ($trail) {
+    $trail->parent('admin.sub-sub-category.index');
+    $trail->push("Create", route('admin.sub-sub-category.create'));
+});
+Breadcrumbs::for('admin.sub-sub-category.edit', function ($trail, $subsubcategory) {
+    $trail->parent('admin.sub-sub-category.index');
+    $trail->push("Edit", route('admin.sub-sub-category.edit', $subsubcategory));
+});
+
+// Home > [Users]
+Breadcrumbs::for('admin.user.index', function ($trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push("Users", route('admin.user.index'));
+});
+
+// Home > [Vendors]
+Breadcrumbs::for('admin.vendor.index', function ($trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push("Vendors", route('admin.vendor.index'));
 });

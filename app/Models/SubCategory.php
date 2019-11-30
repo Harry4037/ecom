@@ -17,4 +17,8 @@ class SubCategory extends Eloquent {
         return $value ? asset('storage/subcategory/' . $value) : "";
     }
 
+    public function subsubcategories() {
+        return $this->hasMany('App\Models\SubSubCategory', "sub_category_id");
+    }
+
 }

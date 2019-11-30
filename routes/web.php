@@ -80,6 +80,16 @@ Route::namespace("Admin")->prefix('admin')->middleware(['auth'])->group(function
         Route::match(['get', 'post'], '/status', 'SubCategoryController@subcategoryStatus')->name('admin.sub-category.status');
     });
 
+    Route::prefix('sub-sub-category')->group(function() {
+        Route::get('/index', 'SubSubCategoryController@subcategoryIndex')->name('admin.sub-sub-category.index');
+        Route::get('/list', 'SubSubCategoryController@subcategoryList')->name('admin.sub-sub-category.list');
+        Route::match(['post', 'get'], '/create', 'SubSubCategoryController@subcategoryCreate')->name('admin.sub-sub-category.create');
+        Route::match(['post', 'get'], '/edit/{subsubcategory}', 'SubSubCategoryController@subcategoryEdit')->name('admin.sub-sub-category.edit');
+        Route::post('/delete', 'SubSubCategoryController@subcategoryDelete')->name('admin.sub-sub-category.delete');
+        Route::match(['get', 'post'], '/status', 'SubSubCategoryController@subcategoryStatus')->name('admin.sub-sub-category.status');
+        Route::post('/sub-category', 'SubSubCategoryController@subcategoryListHtml')->name('admin.sub-sub-category.sub-category');
+    });
+
     Route::prefix('banner')->group(function() {
         Route::get('/', 'BannerController@index')->name('admin.banner.index');
         Route::get('/list', 'BannerController@bannerList')->name('admin.banner.list');

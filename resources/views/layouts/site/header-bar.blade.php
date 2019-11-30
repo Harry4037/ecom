@@ -91,13 +91,13 @@
         </nav>
         @include('layouts.site.categories')           
     </div>
-
+    @if($banners->count() > 0)
     <div class="">
         <div id="rev_slider_1_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container" data-alias="mobile" data-source="gallery" style="margin:0px auto;background:transparent;padding:0px;margin-top:0px;margin-bottom:0px;">
             <!-- START REVOLUTION SLIDER 5.4.8.2 auto mode -->
             <div id="rev_slider_1_1" class="rev_slider fullwidthabanner" style="display:none;" data-version="5.4.8.2">
                 <ul>	<!-- SLIDE  -->
-                    @if($banners)
+
                     @foreach($banners as $banner)
                     <li data-index="rs-1{{$banner->id}}" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="300"  data-thumb="assets/web-banner-1-100x50.jpg"  data-rotate="0"  data-saveperformance="off"  data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
                         <!-- MAIN IMAGE -->
@@ -105,10 +105,11 @@
                         <!-- LAYERS -->
                     </li>
                     @endforeach
-                    @endif
+
                     <!-- SLIDE  -->
                 </ul>
                 <div class="tp-bannertimer tp-bottom" style="visibility: hidden !important;"></div>	</div>
         </div><!-- END REVOLUTION SLIDER -->
     </div>
+    @endif
 </div>

@@ -9,7 +9,7 @@
                 <div class="dropdown-content">
                     @if($categories)
                     @foreach($categories as $category)
-                    <a href="#">{{$category->name}}</a>
+                    <a href="/">{{$category->name}}</a>
                     @endforeach
                     @endif
                 </div>
@@ -20,7 +20,7 @@
 
                 @if(count($category->subcategories) > 0)
                 <li class="nav-item dropdown mega-drop-main">
-                    <a class="nav-link dropdown-toggle" href="product-grid.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{$category->name}}
                     </a>
                     <div class="dropdown-menu mega-drop  shadow-sm border-0" aria-labelledby="navbarDropdown">
@@ -28,16 +28,12 @@
                             @foreach($category->subcategories as $sub)
                             <div class="col-lg-2 col-md-2">
                                 <div class="mega-list">
-                                    <a class="mega-title" href="product-grid.html">{{$sub->name}}</a>
-                                    <a href="product-grid.html">Bras & Lingerie Sets</a>
-                                    <a href="product-grid.html">Briefs</a>
-                                    <a href="product-grid.html">Shapewear</a>
-                                    <a href="product-grid.html">Sleepwear & Loungewear</a>
-                                    <a href="product-grid.html">Swimwear</a>
-                                    <a href="product-grid.html">Camisoles & Thermals</a>
-                                    <a href="product-grid.html">Blazers & Coats</a>
-                                    <a href="product-grid.html">Suits</a>
-                                    <a href="product-grid.html">Rain Jackets</a>
+                                    <a class="mega-title" href="/">{{$sub->name}}</a>
+                                    @if($sub->subsubcategories->count() > 0)
+                                    @foreach($sub->subsubcategories as $subsub)
+                                    <a href="/">{{$subsub->name}}</a>
+                                    @endforeach
+                                    @endif
                                 </div>
                             </div>
                             @endforeach

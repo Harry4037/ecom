@@ -78,6 +78,7 @@ class CategoryController extends Controller {
                 $category->thumbnail = $category_file_name;
                 $category->name = $request->category_name;
                 $category->is_active = $request->is_active;
+                $category->deleted_at = NULL;
 
                 if ($category->save()) {
 
